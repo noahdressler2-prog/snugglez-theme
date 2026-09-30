@@ -62,3 +62,4 @@ Remaining gap: orders above $400 still pay $60 (e.g. $600 → $60, not $90). Cha
 | 20 | Sense blush scheme (scheme-4) | Headings and badges only | Sense prints body text at 75% opacity: 4.21:1 on blush, below AA. Snugglez sections use full cocoa on blush (7.63). |
 | 21 | Rose accent on blush | Allowed for heading-size italic accents only | 4.00:1 passes AA large text (3:1). Small text on blush is always cocoa. |
 | 22 | Public domain | `snugglez.net` (per Noah, 2026-09-30) | Customer-facing domain. CLI commands still use `xsqnkn-r2.myshopify.com`. Revisit #12: a domain email (e.g. hello@snugglez.net) is now possible. |
+| 23 | Hero eyebrow wording | "For dogs & the people who spoil them" | Replaces "women" (Noah, 2026-09-30). Footer brand line still says "moms"; pending Noah. |
