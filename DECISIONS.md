@@ -8,7 +8,7 @@ Started 2026-09-30. Every choice made before and during the build is recorded he
 | 1 | Theme folder | `C:\Shopify\snugglez-theme` | Outside OneDrive to avoid sync conflicts with Git and `.shopify/`. |
 | 2 | Unused connectors | Leave all on | Claude will not use any tool outside the Connector Stack (Rule 10). |
 | 3 | GitHub | Account `noahdressler2-prog` | Repo: private `github.com/noahdressler2-prog/snugglez-theme`. Noah handles all logins. |
-| 3b | Brand name | **Snugglez** (was Snuggles) | Changed 2026-09-30. File prefix `snugglez-`, CSS scope `.snugglez`; color tokens keep `--snug-`. Email unchanged: `snuggless.hello@gmail.com`. |
+| 3b | Brand name | **Snugglez** (was Snuggles) | Changed 2026-09-30. File prefix `snugglez-`, CSS scope `.snugglez`; color tokens keep `--snug-`. Email unchanged: `snuggless.hello@gmail.com`. Store name renamed to Snugglez in Shopify admin (done). |
 | 4 | Dev MCP install method | Project `.mcp.json` | The `claude` CLI isn't installed (desktop app), so the S7 command is replaced by this file. |
 
 ## Brand
