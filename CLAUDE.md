@@ -26,6 +26,27 @@ The feel is **lavish and expensive, with playful color, elegant with a wink.**
 ## SETUP STATUS
 Stage S (setup) is COMPLETE as of 2026-09-30: Node, Shopify CLI, Sense pulled, Git + GitHub, Dev MCP, this file. Do not redo it. Admin Checklist A1-A5 below is NOT done yet.
 
+## SESSION HANDOFF (from the setup session, 2026-09-30)
+**How Noah likes to work**
+- New to CLI tools. Coach one step at a time, short explanations, show commands.
+- Decisions go fastest as **multiple-choice questions** (AskUserQuestion), with a recommended option first. Implement each answer right away and log it in DECISIONS.md.
+- Noah can type short replies like "go", "y", "done". Confirm what "y"/"done" refers to by checking actual state (e.g. `git ls-remote`, `node --version`) instead of assuming.
+
+**What happened in setup (so you don't repeat it)**
+- Brand renamed **Snuggles → Snugglez** mid-setup. Prompt file (`C:\Shopify\snuggles-claude-code-prompt-v1.1.md`), folder, repo, file prefix and CSS scope all updated. Store name also renamed in Shopify admin. Email stays `snuggless.hello@gmail.com` (possible typo perception with the Z brand; revisit later).
+- Shopify CLI login is cached (device-code login in browser). If it expires, run a CLI command in the background and give Noah the verification link/code from the output.
+- GitHub login is cached by Git Credential Manager, so Claude can `git push`. The first push failed from Claude's shell ("terminal prompts disabled"); if auth ever expires, Noah must run `git -C "C:/Shopify/snugglez-theme" push` in Noah's own terminal.
+- npm skipped the `esbuild` postinstall script during Shopify CLI install. Theme commands shouldn't need it. If `shopify theme dev`/`check` errors mentioning esbuild, run `npm install -g @shopify/cli@latest --allow-scripts=esbuild` (ask first).
+- Git commits so far: `7037d85` Sense original, `91e8012` project rules, `9728f8d` store rename log, plus CLAUDE.md updates. Commit identity: Noah / snuggless.hello@gmail.com (repo-local config).
+- Other connectors (Vercel, Slack, Gmail, Drive, Asana, Runway, etc.) are left ON by Noah's choice. Do not use them for theme work (Rule 10). Exception: Google Drive, only when Noah asks to save a summary.
+- Google Drive copy of the decisions log: folder "Snugglez" → doc "Snugglez — Decisions Log (2026-09-30)" (https://docs.google.com/document/d/1QqntYA6VsKW6qiajoSSt1QnDyrMzS0cgP6CXH9-hg9k/edit). It lives in the noah@dhdoscan.com (DHDO) Drive; Noah may move it to a Snugglez account later. Update it when DECISIONS.md changes materially, only if Noah asks.
+
+**Open items**
+- [ ] Admin Checklist A1–A5 (use the shipping tiers from DECISIONS.md, not the old $1.88/$30 version).
+- [ ] Stage 0 → Stage 1 (verify Cormorant + Jost exist in the Shopify font library via Dev MCP; fall back per DECISIONS.md).
+- [ ] Claim Snugglez social handles (Instagram, TikTok).
+- [ ] Later: domain + Snugglez email; portrait personalizer app (needs $50-rule approval).
+- At the end of every session: tell Noah the next message to paste, and remind Noah to save a summary to the Snugglez Google Drive folder.
 ## HARD RULES (never break these)
 
 1. **Never publish.** Never run `shopify theme publish`. Never use `--publish`, `--live`, or `--allow-live`. Only push to the draft theme ID I approve. Before every push, print the target theme ID and role, and stop if the role is `live`.
