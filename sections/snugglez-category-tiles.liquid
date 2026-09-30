@@ -1,0 +1,243 @@
+{%- render 'snugglez-fonts' -%}
+
+{%- liquid
+  assign live_tiles = 0
+  for block in section.blocks
+    if block.settings.collection != blank
+      assign live_tiles = live_tiles | plus: 1
+    endif
+  endfor
+  assign tones = 'blush,cream,petal,champagne' | split: ','
+  assign heading_id = 'SnugTilesHeading-' | append: section.id
+-%}
+
+{%- comment -%}
+  Storefront: only tiles with a collection render. With none set, the section renders nothing.
+  Theme editor: every tile renders, and empty ones carry a HOLE tag.
+{%- endcomment -%}
+{%- if live_tiles > 0 or request.design_mode -%}
+  <section
+    class="snug-tiles snug-section-pad snug-bg--{{ section.settings.background }}{% if section.settings.stagger %} snug-tiles--stagger{% endif %}"
+    style="--snug-pt: {{ section.settings.padding_top }}px; --snug-pb: {{ section.settings.padding_bottom }}px;"
+    aria-labelledby="{{ heading_id }}"
+  >
+    <div class="page-width">
+      <header class="snug-section-head snug-section-head--{{ section.settings.header_alignment }}">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="snug-eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        {%- endif -%}
+        <h2 id="{{ heading_id }}" class="snug-h2">
+          {{- section.settings.heading | escape -}}
+          {%- if section.settings.heading_accent != blank %}
+            <em class="snug-accent">{{ section.settings.heading_accent | escape }}</em>
+          {%- endif -%}
+        </h2>
+      </header>
+
+      <ul class="snug-tiles__grid snug-tiles__grid--{{ section.blocks.size | at_most: 4 }}" role="list">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign tile_collection = block.settings.collection
+            if tile_collection == blank and request.design_mode == false
+              continue
+            endif
+            assign tile_label = block.settings.label | default: tile_collection.title
+            assign tile_image = block.settings.image | default: tile_collection.featured_image
+            assign tone_index = forloop.index0 | modulo: 4
+            assign tile_tag = 'div'
+            if tile_collection != blank
+              assign tile_tag = 'a'
+            endif
+          -%}
+          <li
+            class="snug-tile{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+            style="--animation-order: {{ forloop.index }};"
+            {{ block.shopify_attributes }}
+          >
+            <{{ tile_tag }}
+              class="snug-tile__link"
+              {% if tile_collection != blank %}href="{{ tile_collection.url }}"{% endif %}
+            >
+              <div class="snug-tile__media snug-shape--{{ section.settings.shape }}">
+                {%- if tile_image != blank -%}
+                  {%- assign tile_fp = 'object-position: ' | append: tile_image.presentation.focal_point | append: ';' -%}
+                  <div class="snug-media">
+                    {{
+                      tile_image
+                      | image_url: width: 1200
+                      | image_tag:
+                        widths: '300, 450, 600, 800, 1000, 1200',
+                        sizes: '(min-width: 990px) 25vw, 50vw',
+                        loading: 'lazy',
+                        alt: '',
+                        style: tile_fp
+                    }}
+                  </div>
+                {%- else -%}
+                  {%- assign ph_name = 'Tile photo: ' | append: tile_label -%}
+                  {%- render 'snugglez-photo-placeholder', name: ph_name, tone: tones[tone_index] -%}
+                {%- endif -%}
+                {%- if tile_collection == blank and request.design_mode -%}
+                  <span class="snug-hole__tag snug-hole__tag--top">HOLE — Pick a collection</span>
+                {%- endif -%}
+              </div>
+              <div class="snug-tile__text">
+                <h3 class="snug-tile__label">{{ tile_label | escape }}</h3>
+                {%- if block.settings.note != blank -%}
+                  <p class="snug-tile__note">{{ block.settings.note | escape }}</p>
+                {%- endif -%}
+                {%- if section.settings.link_label != blank -%}
+                  <span class="snug-tile__cta">
+                    {{- section.settings.link_label | escape -}}
+                    <span class="snug-tile__arrow" aria-hidden="true">{{- 'icon-arrow.svg' | inline_asset_content -}}</span>
+                  </span>
+                {%- endif -%}
+              </div>
+            </{{ tile_tag }}>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Snugglez category tiles",
+  "tag": "div",
+  "class": "snug-section-wrap",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "[EDIT] Small line above heading",
+      "default": "Shop by category"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "[EDIT] Heading",
+      "default": "Shop the"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent",
+      "label": "[EDIT] Heading italic accent",
+      "default": "good stuff."
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "label": "Heading alignment",
+      "options": [
+        { "value": "center", "label": "Center" },
+        { "value": "left", "label": "Left" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "[EDIT] Link text under each tile",
+      "info": "Leave blank to hide.",
+      "default": "Shop now"
+    },
+    {
+      "type": "select",
+      "id": "shape",
+      "label": "Photo shape",
+      "options": [
+        { "value": "arch", "label": "Arch" },
+        { "value": "rounded", "label": "Rounded rectangle" }
+      ],
+      "default": "arch"
+    },
+    {
+      "type": "checkbox",
+      "id": "stagger",
+      "label": "Staggered layout",
+      "info": "Every other tile sits a little lower.",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Background",
+      "options": [
+        { "value": "cream", "label": "Cream" },
+        { "value": "cream-dark", "label": "Warm cream" },
+        { "value": "blush", "label": "Blush" },
+        { "value": "white", "label": "White" },
+        { "value": "cocoa", "label": "Cocoa" }
+      ],
+      "default": "cream"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Tile",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection",
+          "info": "Tiles without a collection stay hidden on the live store."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Photo (optional)",
+          "info": "Falls back to the collection's image."
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "[EDIT] Label",
+          "info": "Falls back to the collection's title."
+        },
+        {
+          "type": "text",
+          "id": "note",
+          "label": "[EDIT] Small note (optional)"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Snugglez category tiles",
+      "blocks": [
+        { "type": "tile", "settings": { "label": "Hoodies" } },
+        { "type": "tile", "settings": { "label": "Accessories" } },
+        { "type": "tile", "settings": { "label": "Beds and blankets" } },
+        { "type": "tile", "settings": { "label": "Portrait canvases" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

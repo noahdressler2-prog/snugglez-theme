@@ -49,3 +49,15 @@ Started 2026-09-30. Every choice made before and during the build is recorded he
 | $400.00 and up | $400.00 × 0.15 (floor) | $60.00 |
 
 Remaining gap: orders above $400 still pay $60 (e.g. $600 → $60, not $90). Charges still rise with each tier ($5.00 < $5.63 < …).
+
+## Stage 2 build (2026-09-30)
+| # | Decision | Choice | Notes |
+|---|---|---|---|
+| 14 | Fonts verified | Cormorant `cormorant_n5` headings, Jost `jost_n4` body | Both confirmed in the Shopify font library (shopify.dev font list; Dev MCP wasn't loaded in the desktop session). Italic accent loads `cormorant_i5` via `snippets/snugglez-fonts.liquid`. `heading_scale` 120 → 130 because Cormorant runs small. |
+| 15 | Photo holes on the live store | Show the blush/cream "Photo coming" panel | Hole 2 defines this empty state. The dashed champagne outline + `HOLE —` tag show only in the theme editor. Every other hole renders nothing on the storefront. |
+| 16 | Extra section | `snugglez-ribbon` (static blush band of italic phrases) | Not in the original file list. No motion. Remove it in the editor if unwanted. |
+| 17 | Pill buttons | `--buttons-radius: 40px` on `body.snugglez` | CSS override of a Sense token, so it also rounds Sense buttons (cart, product page). One line in `snugglez.css` to revert. |
+| 18 | Sense footer + newsletter | Disabled in `footer-group.json`, not deleted | Re-enable in the editor anytime. `snugglez-footer` is the live footer. |
+| 19 | Header menu | Points at `shop-by-category` | The menu doesn't exist yet (checklist A3), so the header nav is empty until Noah creates it. |
+| 20 | Sense blush scheme (scheme-4) | Headings and badges only | Sense prints body text at 75% opacity: 4.21:1 on blush, below AA. Snugglez sections use full cocoa on blush (7.63). |
+| 21 | Rose accent on blush | Allowed for heading-size italic accents only | 4.00:1 passes AA large text (3:1). Small text on blush is always cocoa. |

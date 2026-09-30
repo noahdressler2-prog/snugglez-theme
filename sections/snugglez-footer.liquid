@@ -1,0 +1,227 @@
+{%- render 'snugglez-fonts' -%}
+
+{%- liquid
+  assign shop_menu = section.settings.menu
+  assign has_social = false
+  if settings.social_instagram_link != blank or settings.social_tiktok_link != blank or settings.social_facebook_link != blank or settings.social_pinterest_link != blank or settings.social_youtube_link != blank or settings.social_twitter_link != blank or settings.social_snapchat_link != blank or settings.social_tumblr_link != blank or settings.social_vimeo_link != blank
+    assign has_social = true
+  endif
+  assign contact_email = section.settings.email | strip
+-%}
+
+<footer class="snug-footer snug-bg--cocoa">
+  <div class="page-width">
+    <div class="snug-footer__top">
+      <div class="snug-footer__brand">
+        <a href="{{ routes.root_url }}" class="snug-footer__name">
+          {%- if section.settings.logo != blank -%}
+            {%- assign logo_alt = section.settings.logo.alt | default: shop.name -%}
+            {%- assign logo_style = 'max-width: ' | append: section.settings.logo_width | append: 'px;' -%}
+            {{
+              section.settings.logo
+              | image_url: width: 600
+              | image_tag:
+                class: 'snug-footer__logo',
+                widths: '200, 300, 400, 600',
+                sizes: '(min-width: 750px) 240px, 60vw',
+                loading: 'lazy',
+                alt: logo_alt,
+                style: logo_style
+            }}
+          {%- else -%}
+            {{ shop.name }}
+          {%- endif -%}
+        </a>
+        {%- if section.settings.brand_line != blank or section.settings.brand_accent != blank -%}
+          <p class="snug-footer__line">
+            {{- section.settings.brand_line | escape -}}
+            {%- if section.settings.brand_accent != blank %}
+              <em class="snug-accent snug-accent--line">{{ section.settings.brand_accent | escape }}</em>
+            {%- endif -%}
+          </p>
+        {%- endif -%}
+
+        {%- if has_social -%}
+          {%- render 'social-icons', class: 'snug-footer__social' -%}
+        {%- elsif request.design_mode -%}
+          <span class="snug-hole__tag">HOLE — Social links (Theme settings › Social media)</span>
+        {%- endif -%}
+      </div>
+
+      {%- if shop_menu.links.size > 0 -%}
+        <nav class="snug-footer__col" aria-label="{{ section.settings.menu_heading | escape }}">
+          <h2 class="snug-footer__heading">{{ section.settings.menu_heading | escape }}</h2>
+          <ul class="snug-footer__links" role="list">
+            {%- for link in shop_menu.links -%}
+              <li>
+                <a
+                  href="{{ link.url }}"
+                  class="snug-footer__link"
+                  {% if link.current %}aria-current="page"{% endif %}
+                >
+                  {{- link.title | escape -}}
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+      {%- elsif request.design_mode -%}
+        <div class="snug-footer__col">
+          <h2 class="snug-footer__heading">{{ section.settings.menu_heading | escape }}</h2>
+          <span class="snug-hole__tag">HOLE — "Shop by category" menu</span>
+        </div>
+      {%- endif -%}
+
+      {%- if contact_email != blank -%}
+        <div class="snug-footer__col">
+          <h2 class="snug-footer__heading">{{ section.settings.contact_heading | escape }}</h2>
+          {%- if section.settings.contact_note != blank -%}
+            <p class="snug-footer__note">{{ section.settings.contact_note | escape }}</p>
+          {%- endif -%}
+          <a href="mailto:{{ contact_email }}" class="snug-footer__link snug-footer__email">
+            {{- contact_email -}}
+          </a>
+        </div>
+      {%- endif -%}
+
+      {%- if shop.policies.size > 0 -%}
+        <nav class="snug-footer__col" aria-label="{{ section.settings.policies_heading | escape }}">
+          <h2 class="snug-footer__heading">{{ section.settings.policies_heading | escape }}</h2>
+          <ul class="snug-footer__links" role="list">
+            {%- for policy in shop.policies -%}
+              {%- if policy != blank -%}
+                <li>
+                  <a href="{{ policy.url }}" class="snug-footer__link">{{ policy.title | escape }}</a>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </nav>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.show_wordmark -%}
+      <p class="snug-footer__wordmark" aria-hidden="true">{{ shop.name }}</p>
+    {%- endif -%}
+
+    <div class="snug-footer__bottom">
+      <p class="snug-footer__copy">
+        &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}
+      </p>
+      {%- if section.settings.show_payment and shop.enabled_payment_types.size > 0 -%}
+        <div class="snug-footer__payment">
+          <span class="visually-hidden">{{ 'sections.footer.payment' | t }}</span>
+          <ul class="snug-footer__pay-list" role="list">
+            {%- for type in shop.enabled_payment_types -%}
+              <li class="snug-footer__pay-item">
+                {{- type | payment_type_svg_tag: class: 'icon icon--full-color' -}}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Snugglez footer",
+  "tag": "div",
+  "class": "snug-section-wrap snug-footer-wrap",
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Brand"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Footer logo (optional)",
+      "info": "Use a light version, because the footer is cocoa. Without one, the shop name shows in the heading font."
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Logo width",
+      "min": 60,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "default": 160
+    },
+    {
+      "type": "text",
+      "id": "brand_line",
+      "label": "[EDIT] Brand line",
+      "default": "Luxe comforts for dogs and the moms who spoil them."
+    },
+    {
+      "type": "text",
+      "id": "brand_accent",
+      "label": "[EDIT] Brand line italic accent",
+      "default": "Spoiled, beautifully."
+    },
+    {
+      "type": "header",
+      "content": "Columns"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Shop menu",
+      "info": "Point this at the \"Shop by category\" menu."
+    },
+    {
+      "type": "text",
+      "id": "menu_heading",
+      "label": "[EDIT] Shop menu heading",
+      "default": "Shop"
+    },
+    {
+      "type": "text",
+      "id": "contact_heading",
+      "label": "[EDIT] Contact heading",
+      "default": "Say hello"
+    },
+    {
+      "type": "text",
+      "id": "contact_note",
+      "label": "[EDIT] Contact note",
+      "default": "Questions, gifting, or a custom portrait? Write to us."
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Contact email",
+      "info": "The only contact detail shown on the site.",
+      "default": "snuggless.hello@gmail.com"
+    },
+    {
+      "type": "text",
+      "id": "policies_heading",
+      "label": "[EDIT] Policies heading",
+      "default": "The fine print"
+    },
+    {
+      "type": "header",
+      "content": "Extras"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_wordmark",
+      "label": "Show the large shop name",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment",
+      "label": "Show payment icons",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

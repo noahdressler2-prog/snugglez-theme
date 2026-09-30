@@ -1,0 +1,22 @@
+{% comment %}
+  Snugglez: blush and cream "Photo coming" panel for an empty image_picker (Hole 2).
+  In the theme editor it also gets a dashed champagne outline and a HOLE tag.
+
+  Accepts:
+  - name: {String} hole name for the editor tag, e.g. 'Hero photo'
+  - tone: {String} 'blush' (default), 'cream', 'petal' or 'champagne'
+
+  Usage:
+  {% render 'snugglez-photo-placeholder', name: 'Hero photo', tone: 'blush' %}
+{% endcomment %}
+<div class="snug-photo-ph snug-photo-ph--{{ tone | default: 'blush' }}{% if request.design_mode %} snug-photo-ph--design{% endif %}">
+  <span class="snug-photo-ph__inner">
+    <span class="snug-photo-ph__icon" aria-hidden="true">
+      {{- 'icon-paw-print.svg' | inline_asset_content -}}
+    </span>
+    <span class="snug-photo-ph__label">Photo coming</span>
+  </span>
+  {%- if request.design_mode -%}
+    <span class="snug-hole__tag snug-hole__tag--float">HOLE — {{ name }}</span>
+  {%- endif -%}
+</div>

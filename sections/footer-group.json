@@ -13,6 +13,7 @@
   "sections": {
     "newsletter": {
       "type": "newsletter",
+      "disabled": true,
       "blocks": {
         "heading": {
           "type": "heading",
@@ -46,6 +47,7 @@
     },
     "footer": {
       "type": "footer",
+      "disabled": true,
       "settings": {
         "color_scheme": "scheme-2",
         "newsletter_enable": false,
@@ -60,10 +62,27 @@
         "padding_top": 44,
         "padding_bottom": 48
       }
+    },
+    "snugglez_footer": {
+      "type": "snugglez-footer",
+      "settings": {
+        "logo_width": 160,
+        "brand_line": "Luxe comforts for dogs and the moms who spoil them.",
+        "brand_accent": "Spoiled, beautifully.",
+        "menu": "shop-by-category",
+        "menu_heading": "Shop",
+        "contact_heading": "Say hello",
+        "contact_note": "Questions, gifting, or a custom portrait? Write to us.",
+        "email": "snuggless.hello@gmail.com",
+        "policies_heading": "The fine print",
+        "show_wordmark": true,
+        "show_payment": true
+      }
     }
   },
   "order": [
     "newsletter",
-    "footer"
+    "footer",
+    "snugglez_footer"
   ]
 }

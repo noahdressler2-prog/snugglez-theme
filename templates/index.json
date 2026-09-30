@@ -9,75 +9,123 @@
  */
 {
   "sections": {
-    "image-with-text": {
-      "type": "image-with-text",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Browse our latest products",
-            "heading_size": "h1"
-          }
-        },
-        "button": {
-          "type": "button",
-          "settings": {
-            "button_label": "Shop now",
-            "button_link": "shopify://collections/all",
-            "button_style_secondary": false
-          }
-        }
-      },
-      "block_order": [
-        "heading",
-        "button"
-      ],
+    "snugglez_hero": {
+      "type": "snugglez-hero",
       "settings": {
-        "height": "large",
-        "desktop_image_width": "large",
-        "layout": "text_first",
-        "desktop_content_position": "middle",
-        "desktop_content_alignment": "left",
-        "content_layout": "overlap",
-        "section_color_scheme": "scheme-1",
-        "color_scheme": "scheme-2",
-        "image_behavior": "none",
-        "mobile_content_alignment": "left",
-        "padding_top": 0,
-        "padding_bottom": 0
+        "layout": "split",
+        "height": "medium",
+        "shape": "arch",
+        "mobile_image_first": true,
+        "content_alignment": "left",
+        "background": "cream",
+        "overlay_opacity": 35,
+        "eyebrow": "For dogs & the women who spoil them",
+        "heading": "Spoiled,",
+        "heading_accent": "beautifully.",
+        "accent_new_line": true,
+        "subtext": "Luxe comforts for the dog who owns the good side of the bed.",
+        "cta_label": "Shop the collection",
+        "cta_url": "shopify://collections/all",
+        "badge_text": "Spoiled · Beautifully · Spoiled · Beautifully ·"
       }
     },
-    "featured-collection": {
-      "type": "featured-collection",
+    "snugglez_ribbon": {
+      "type": "snugglez-ribbon",
+      "blocks": {
+        "phrase_1": { "type": "phrase", "settings": { "text": "Spoiled, beautifully" } },
+        "phrase_2": { "type": "phrase", "settings": { "text": "Luxe comforts" } },
+        "phrase_3": { "type": "phrase", "settings": { "text": "The good side of the bed" } },
+        "phrase_4": { "type": "phrase", "settings": { "text": "Tails will wag" } }
+      },
+      "block_order": ["phrase_1", "phrase_2", "phrase_3", "phrase_4"],
       "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "collection": "all",
-        "products_to_show": 4,
-        "columns_desktop": 4,
-        "full_width": false,
-        "show_view_all": false,
-        "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "color_scheme": "scheme-1",
-        "image_ratio": "square",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "swipe_on_mobile": true,
-        "padding_top": 56,
-        "padding_bottom": 68
+        "background": "blush",
+        "aria_label": "Snugglez notes"
+      }
+    },
+    "snugglez_tiles": {
+      "type": "snugglez-category-tiles",
+      "blocks": {
+        "tile_hoodies": { "type": "tile", "settings": { "label": "Hoodies", "note": "" } },
+        "tile_accessories": { "type": "tile", "settings": { "label": "Accessories", "note": "" } },
+        "tile_beds": { "type": "tile", "settings": { "label": "Beds and blankets", "note": "" } },
+        "tile_portraits": { "type": "tile", "settings": { "label": "Portrait canvases", "note": "" } }
+      },
+      "block_order": ["tile_hoodies", "tile_accessories", "tile_beds", "tile_portraits"],
+      "settings": {
+        "eyebrow": "Shop by category",
+        "heading": "Shop the",
+        "heading_accent": "good stuff.",
+        "header_alignment": "center",
+        "link_label": "Shop now",
+        "shape": "arch",
+        "stagger": true,
+        "background": "cream",
+        "padding_top": 96,
+        "padding_bottom": 112
+      }
+    },
+    "snugglez_grid_hole": {
+      "type": "snugglez-product-grid-hole",
+      "settings": {
+        "heading": "The collection,",
+        "heading_accent": "arriving soon.",
+        "note": "Product grid, variant picker, product page and collection layout are still being decided. Nothing here shows on the live store.",
+        "background": "cream",
+        "padding_top": 0,
+        "padding_bottom": 96
+      }
+    },
+    "snugglez_social": {
+      "type": "snugglez-social-feed",
+      "blocks": {
+        "photo_1": { "type": "photo", "settings": {} },
+        "photo_2": { "type": "photo", "settings": {} },
+        "photo_3": { "type": "photo", "settings": {} },
+        "photo_4": { "type": "photo", "settings": {} },
+        "photo_5": { "type": "photo", "settings": {} },
+        "photo_6": { "type": "photo", "settings": {} }
+      },
+      "block_order": ["photo_1", "photo_2", "photo_3", "photo_4", "photo_5", "photo_6"],
+      "settings": {
+        "eyebrow": "Snugglez in the wild",
+        "heading": "Follow the",
+        "heading_accent": "good life.",
+        "handle": "",
+        "cta_label": "Follow along",
+        "cta_url": "",
+        "background": "cream-dark",
+        "padding_top": 96,
+        "padding_bottom": 112
+      }
+    },
+    "snugglez_newsletter": {
+      "type": "snugglez-newsletter",
+      "settings": {
+        "eyebrow": "The newsletter",
+        "heading": "Join the inner circle.",
+        "heading_accent": "Tails will wag.",
+        "text": "New arrivals, styling notes, and the occasional very good dog, delivered to your inbox.",
+        "field_label": "Email address",
+        "placeholder": "you@example.com",
+        "button_label": "Join",
+        "fine_print": "Unsubscribe anytime.",
+        "success_heading": "You're in.",
+        "success_accent": "Welcome to the inner circle.",
+        "error_fallback": "Something went wrong. Please check your email and try again.",
+        "card_background": "blush",
+        "section_background": "cream",
+        "padding_top": 96,
+        "padding_bottom": 112
       }
     }
   },
   "order": [
-    "image-with-text",
-    "featured-collection"
+    "snugglez_hero",
+    "snugglez_ribbon",
+    "snugglez_tiles",
+    "snugglez_grid_hole",
+    "snugglez_social",
+    "snugglez_newsletter"
   ]
 }

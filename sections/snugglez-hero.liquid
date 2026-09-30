@@ -1,0 +1,292 @@
+{%- render 'snugglez-fonts' -%}
+
+{%- liquid
+  assign img_desktop = section.settings.image_desktop | default: section.settings.image_mobile
+  assign img_mobile = section.settings.image_mobile | default: section.settings.image_desktop
+  assign has_image = false
+  if img_desktop != blank
+    assign has_image = true
+  endif
+
+  assign layout = section.settings.layout
+  if layout == 'overlay'
+    assign img_sizes = '100vw'
+  else
+    assign img_sizes = '(min-width: 990px) 46vw, 90vw'
+  endif
+
+  assign heading_id = 'SnugHeroHeading-' | append: section.id
+-%}
+
+{%- capture hero_media -%}
+  {%- if has_image -%}
+    <picture
+      class="snug-media snug-hero__picture"
+      style="--snug-fp-d: {{ img_desktop.presentation.focal_point }}; --snug-fp-m: {{ img_mobile.presentation.focal_point }};"
+    >
+      {%- if section.settings.image_mobile != blank and section.settings.image_desktop != blank -%}
+        <source
+          media="(max-width: 749px)"
+          srcset="{{ img_mobile | image_url: width: 750 }} 750w, {{ img_mobile | image_url: width: 1100 }} 1100w, {{ img_mobile | image_url: width: 1500 }} 1500w"
+          sizes="100vw"
+          width="{{ img_mobile.width }}"
+          height="{{ img_mobile.height }}"
+        >
+      {%- endif -%}
+      {{
+        img_desktop
+        | image_url: width: 3000
+        | image_tag:
+          class: 'snug-hero__img',
+          widths: '750, 1100, 1500, 1800, 2200, 3000',
+          sizes: img_sizes,
+          loading: 'eager',
+          fetchpriority: 'high',
+          alt: img_desktop.alt
+      }}
+    </picture>
+  {%- else -%}
+    {%- render 'snugglez-photo-placeholder', name: 'Hero photo', tone: 'blush' -%}
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- capture hero_copy -%}
+  {%- if section.settings.eyebrow != blank -%}
+    <p class="snug-eyebrow">{{ section.settings.eyebrow | escape }}</p>
+  {%- endif -%}
+  <h2 id="{{ heading_id }}" class="snug-display">
+    {{- section.settings.heading | escape -}}
+    {%- if section.settings.heading_accent != blank %}
+      <em class="snug-accent{% if section.settings.accent_new_line %} snug-accent--line{% endif %}">
+        {{- section.settings.heading_accent | escape -}}
+      </em>
+    {%- endif -%}
+  </h2>
+  {%- if section.settings.subtext != blank -%}
+    <p class="snug-hero__subtext">{{ section.settings.subtext | escape }}</p>
+  {%- endif -%}
+  {%- if section.settings.cta_label != blank and section.settings.cta_url != blank -%}
+    <div class="snug-hero__actions">
+      <a href="{{ section.settings.cta_url }}" class="snug-btn snug-btn--primary">
+        {{- section.settings.cta_label | escape -}}
+        <span class="snug-btn__arrow" aria-hidden="true">{{- 'icon-arrow.svg' | inline_asset_content -}}</span>
+      </a>
+    </div>
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- capture hero_badge -%}
+  {%- if section.settings.badge_text != blank -%}
+    <div class="snug-hero__badge" aria-hidden="true">
+      <svg viewBox="0 0 120 120" focusable="false">
+        <defs>
+          <path id="SnugBadgePath-{{ section.id }}" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"></path>
+        </defs>
+        <circle class="snug-hero__badge-bg" cx="60" cy="60" r="59"></circle>
+        <circle class="snug-hero__badge-ring" cx="60" cy="60" r="54" fill="none"></circle>
+        <text class="snug-hero__badge-text">
+          <textPath href="#SnugBadgePath-{{ section.id }}" textLength="274" lengthAdjust="spacing">
+            {{- section.settings.badge_text | upcase | escape -}}
+          </textPath>
+        </text>
+        <path class="snug-hero__badge-star" d="M60 47c.4 6.9 6.1 12.6 13 13-6.9.4-12.6 6.1-13 13-.4-6.9-6.1-12.6-13-13 6.9-.4 12.6-6.1 13-13Z"></path>
+      </svg>
+    </div>
+  {%- endif -%}
+{%- endcapture -%}
+
+<section
+  id="SnugHero-{{ section.id }}"
+  class="snug-hero snug-hero--{{ layout }} snug-hero--h-{{ section.settings.height }} snug-bg--{{ section.settings.background }}{% if has_image %} snug-hero--has-image{% else %} snug-hero--no-image{% endif %}{% if section.settings.mobile_image_first %} snug-hero--image-first{% endif %}"
+  aria-labelledby="{{ heading_id }}"
+>
+  {%- if layout == 'overlay' -%}
+    <div class="snug-hero__bg">{{ hero_media }}</div>
+    {%- if has_image -%}
+      <div class="snug-hero__scrim" style="--snug-scrim: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"></div>
+    {%- endif -%}
+    <div class="snug-hero__inner page-width">
+      <div class="snug-hero__content snug-hero__content--{{ section.settings.content_alignment }}">
+        {{ hero_copy }}
+      </div>
+    </div>
+  {%- else -%}
+    <div class="snug-hero__inner page-width">
+      <div class="snug-hero__content">
+        {{ hero_copy }}
+      </div>
+      <div class="snug-hero__visual">
+        <span class="snug-hero__blob" aria-hidden="true"></span>
+        <span class="snug-hero__halo" aria-hidden="true"></span>
+        <div class="snug-hero__frame snug-shape--{{ section.settings.shape }}">
+          {{ hero_media }}
+        </div>
+        {{ hero_badge }}
+      </div>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Snugglez hero",
+  "tag": "div",
+  "class": "snug-section-wrap",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        { "value": "split", "label": "Split: copy + arched photo" },
+        { "value": "overlay", "label": "Full-bleed photo with copy on top" }
+      ],
+      "default": "split"
+    },
+    {
+      "type": "select",
+      "id": "height",
+      "label": "Height",
+      "options": [
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "full", "label": "Full screen" }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "select",
+      "id": "shape",
+      "label": "Photo shape (split layout)",
+      "options": [
+        { "value": "arch", "label": "Arch" },
+        { "value": "rounded", "label": "Rounded rectangle" }
+      ],
+      "default": "arch"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_image_first",
+      "label": "Show photo above copy on mobile (split layout)",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Copy alignment (full-bleed layout)",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Background",
+      "options": [
+        { "value": "cream", "label": "Cream" },
+        { "value": "cream-dark", "label": "Warm cream" },
+        { "value": "blush", "label": "Blush" },
+        { "value": "white", "label": "White" },
+        { "value": "cocoa", "label": "Cocoa" }
+      ],
+      "default": "cream"
+    },
+    {
+      "type": "header",
+      "content": "Photos"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "Desktop photo"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Mobile photo (optional)",
+      "info": "Falls back to the desktop photo."
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Photo shade (full-bleed layout)",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "default": 35
+    },
+    {
+      "type": "header",
+      "content": "Copy"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "[EDIT] Small line above heading",
+      "default": "For dogs & the women who spoil them"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "[EDIT] Heading",
+      "default": "Spoiled,"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent",
+      "label": "[EDIT] Heading italic accent",
+      "default": "beautifully."
+    },
+    {
+      "type": "checkbox",
+      "id": "accent_new_line",
+      "label": "Put the italic accent on its own line",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "[EDIT] Subtext",
+      "default": "Luxe comforts for the dog who owns the good side of the bed."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "[EDIT] Button label",
+      "default": "Shop the collection"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Button link",
+      "default": "shopify://collections/all"
+    },
+    {
+      "type": "header",
+      "content": "Round badge (split layout)"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "[EDIT] Badge text",
+      "info": "Runs around the circle. Leave blank to hide the badge.",
+      "default": "Spoiled · Beautifully · Spoiled · Beautifully ·"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Snugglez hero"
+    }
+  ]
+}
+{% endschema %}

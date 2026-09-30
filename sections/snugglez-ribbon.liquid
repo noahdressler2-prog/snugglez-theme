@@ -1,0 +1,95 @@
+{%- render 'snugglez-fonts' -%}
+
+{%- liquid
+  assign phrase_count = 0
+  for block in section.blocks
+    if block.settings.text != blank
+      assign phrase_count = phrase_count | plus: 1
+    endif
+  endfor
+-%}
+
+{%- if phrase_count > 0 -%}
+  <section
+    class="snug-ribbon snug-bg--{{ section.settings.background }}"
+    aria-label="{{ section.settings.aria_label | escape }}"
+  >
+    {%- comment -%} The phrases repeat so the band always reaches both edges. Only the first pass is read aloud. {%- endcomment -%}
+    <div class="snug-ribbon__track">
+      {%- for pass in (1..3) -%}
+        <ul class="snug-ribbon__list" role="list"{% unless forloop.first %} aria-hidden="true"{% endunless %}>
+          {%- for block in section.blocks -%}
+            {%- if block.settings.text != blank -%}
+              <li class="snug-ribbon__item" {% if forloop.parentloop.first %}{{ block.shopify_attributes }}{% endif %}>
+                <span>{{ block.settings.text | escape }}</span>
+                {%- render 'snugglez-sparkle' -%}
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      {%- endfor -%}
+    </div>
+  </section>
+{%- elsif request.design_mode -%}
+  <div class="page-width snug-section-pad">
+    {%- render 'snugglez-hole', name: 'Ribbon phrases', note: 'Add a phrase block to show the ribbon.' -%}
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Snugglez ribbon",
+  "tag": "div",
+  "class": "snug-section-wrap",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Background",
+      "options": [
+        { "value": "blush", "label": "Blush" },
+        { "value": "cream", "label": "Cream" },
+        { "value": "cream-dark", "label": "Warm cream" },
+        { "value": "white", "label": "White" },
+        { "value": "cocoa", "label": "Cocoa" }
+      ],
+      "default": "blush"
+    },
+    {
+      "type": "text",
+      "id": "aria_label",
+      "label": "[EDIT] Screen reader label",
+      "default": "Snugglez notes"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "phrase",
+      "name": "Phrase",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "[EDIT] Phrase",
+          "default": "Spoiled, beautifully"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Snugglez ribbon",
+      "blocks": [
+        { "type": "phrase", "settings": { "text": "Spoiled, beautifully" } },
+        { "type": "phrase", "settings": { "text": "Luxe comforts" } },
+        { "type": "phrase", "settings": { "text": "The good side of the bed" } },
+        { "type": "phrase", "settings": { "text": "Tails will wag" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

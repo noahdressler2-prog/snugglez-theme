@@ -1,0 +1,23 @@
+{% comment %}
+  Snugglez: a clearly marked placeholder ("hole").
+  Theme editor only. On the storefront it renders nothing.
+
+  Accepts:
+  - name: {String} what belongs here, e.g. 'Product grid'
+  - note: {String} optional explanation shown under the tag
+  - content: {String} optional markup rendered inside the box
+
+  Usage:
+  {% render 'snugglez-hole', name: 'Product grid', note: 'Noah decides this week.' %}
+{% endcomment %}
+{%- if request.design_mode -%}
+  <div class="snug-hole" role="note">
+    <span class="snug-hole__tag">HOLE — {{ name }}</span>
+    {%- if note != blank -%}
+      <p class="snug-hole__note">{{ note }}</p>
+    {%- endif -%}
+    {%- if content != blank -%}
+      {{ content }}
+    {%- endif -%}
+  </div>
+{%- endif -%}

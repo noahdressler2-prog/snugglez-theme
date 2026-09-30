@@ -1,0 +1,214 @@
+{%- comment -%}
+  Hole 5: Instagram / UGC feed shell.
+  Hidden on the storefront until a follow URL or at least one photo is set.
+{%- endcomment -%}
+{%- liquid
+  assign photo_count = 0
+  for block in section.blocks
+    if block.settings.image != blank
+      assign photo_count = photo_count | plus: 1
+    endif
+  endfor
+  assign is_live = false
+  if section.settings.cta_url != blank or photo_count > 0
+    assign is_live = true
+  endif
+  assign heading_id = 'SnugSocialHeading-' | append: section.id
+-%}
+
+{%- if is_live or request.design_mode -%}
+  {%- render 'snugglez-fonts' -%}
+  <section
+    class="snug-social snug-section-pad snug-bg--{{ section.settings.background }}"
+    style="--snug-pt: {{ section.settings.padding_top }}px; --snug-pb: {{ section.settings.padding_bottom }}px;"
+    aria-labelledby="{{ heading_id }}"
+  >
+    <div class="page-width">
+      {%- if is_live == false -%}
+        {%- render 'snugglez-hole', name: 'Social feed', note: 'Hidden on the live store until you add a follow link or a photo. Claim the Instagram and TikTok handles first.' -%}
+      {%- endif -%}
+
+      <div class="snug-social__head">
+        <div>
+          {%- if section.settings.eyebrow != blank -%}
+            <p class="snug-eyebrow">{{ section.settings.eyebrow | escape }}</p>
+          {%- endif -%}
+          <h2 id="{{ heading_id }}" class="snug-h2">
+            {{- section.settings.heading | escape -}}
+            {%- if section.settings.heading_accent != blank %}
+              <em class="snug-accent">{{ section.settings.heading_accent | escape }}</em>
+            {%- endif -%}
+          </h2>
+          {%- if section.settings.handle != blank -%}
+            <p class="snug-social__handle">{{ section.settings.handle | escape }}</p>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.cta_url != blank and section.settings.cta_label != blank -%}
+          <a
+            href="{{ section.settings.cta_url }}"
+            class="snug-btn snug-btn--secondary"
+            target="_blank"
+            rel="noopener"
+          >
+            {{- section.settings.cta_label | escape -}}
+            <span class="visually-hidden"> ({{ 'accessibility.link_messages.new_window' | t }})</span>
+          </a>
+        {%- endif -%}
+      </div>
+
+      <ul class="snug-social__grid" role="list">
+        {%- for block in section.blocks -%}
+          {%- if block.settings.image != blank or request.design_mode -%}
+            <li
+              class="snug-social__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+              style="--animation-order: {{ forloop.index }};"
+              {{ block.shopify_attributes }}
+            >
+              {%- if block.settings.image != blank -%}
+                {%- capture social_img -%}
+                  {{
+                    block.settings.image
+                    | image_url: width: 900
+                    | image_tag:
+                      widths: '240, 360, 480, 600, 900',
+                      sizes: '(min-width: 750px) 17vw, 33vw',
+                      loading: 'lazy'
+                  }}
+                {%- endcapture -%}
+                {%- if section.settings.cta_url != blank -%}
+                  <a href="{{ section.settings.cta_url }}" class="snug-social__tile snug-media" target="_blank" rel="noopener">
+                    {{ social_img }}
+                    <span class="visually-hidden">{{ section.settings.cta_label | escape }} ({{ 'accessibility.link_messages.new_window' | t }})</span>
+                  </a>
+                {%- else -%}
+                  <div class="snug-social__tile snug-media">{{ social_img }}</div>
+                {%- endif -%}
+              {%- else -%}
+                {%- assign ph_tones = 'blush,cream,petal,champagne,cream,blush' | split: ',' -%}
+                {%- assign ph_index = forloop.index0 | modulo: 6 -%}
+                <div class="snug-social__tile">
+                  {%- assign ph_name = 'Feed photo ' | append: forloop.index -%}
+                  {%- render 'snugglez-photo-placeholder', name: ph_name, tone: ph_tones[ph_index] -%}
+                </div>
+              {%- endif -%}
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Snugglez social feed",
+  "tag": "div",
+  "class": "snug-section-wrap",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Hidden on the live store until a follow link or a photo is added."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "[EDIT] Small line above heading",
+      "default": "Snugglez in the wild"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "[EDIT] Heading",
+      "default": "Follow the"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent",
+      "label": "[EDIT] Heading italic accent",
+      "default": "good life."
+    },
+    {
+      "type": "text",
+      "id": "handle",
+      "label": "[EDIT] Handle",
+      "info": "For example @snugglez. Leave blank until the handle is claimed."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "[EDIT] Button label",
+      "default": "Follow along"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Follow link",
+      "info": "Your Instagram or TikTok profile URL."
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Background",
+      "options": [
+        { "value": "cream-dark", "label": "Warm cream" },
+        { "value": "cream", "label": "Cream" },
+        { "value": "blush", "label": "Blush" },
+        { "value": "white", "label": "White" },
+        { "value": "cocoa", "label": "Cocoa" }
+      ],
+      "default": "cream-dark"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    }
+  ],
+  "blocks": [
+    {
+      "type": "photo",
+      "name": "Photo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Photo",
+          "info": "Add alt text to the image in Files so screen readers can describe it."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Snugglez social feed",
+      "blocks": [
+        { "type": "photo" },
+        { "type": "photo" },
+        { "type": "photo" },
+        { "type": "photo" },
+        { "type": "photo" },
+        { "type": "photo" }
+      ]
+    }
+  ]
+}
+{% endschema %}

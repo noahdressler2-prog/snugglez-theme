@@ -1,0 +1,106 @@
+{%- comment -%}
+  Hole 4: product grid, variant picker, product page and collection layout.
+  Not decided yet. This section only marks the spot in the theme editor.
+  On the storefront it renders nothing. No fake products, names or prices.
+{%- endcomment -%}
+{%- if request.design_mode -%}
+  {%- render 'snugglez-fonts' -%}
+  <section
+    class="snug-grid-hole snug-section-pad snug-bg--{{ section.settings.background }}"
+    style="--snug-pt: {{ section.settings.padding_top }}px; --snug-pb: {{ section.settings.padding_bottom }}px;"
+  >
+    <div class="page-width">
+      <header class="snug-section-head snug-section-head--center">
+        <h2 class="snug-h2">
+          {{- section.settings.heading | escape -}}
+          {%- if section.settings.heading_accent != blank %}
+            <em class="snug-accent">{{ section.settings.heading_accent | escape }}</em>
+          {%- endif -%}
+        </h2>
+      </header>
+      {%- capture skeletons -%}
+        <ul class="snug-skeleton-grid" role="list" aria-hidden="true">
+          {%- for i in (1..4) -%}
+            <li class="snug-skeleton">
+              <span class="snug-skeleton__media"></span>
+              <span class="snug-skeleton__bar"></span>
+              <span class="snug-skeleton__bar snug-skeleton__bar--short"></span>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endcapture -%}
+      {%- render 'snugglez-hole', name: 'Product grid', note: section.settings.note, content: skeletons -%}
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Snugglez grid (hole)",
+  "tag": "div",
+  "class": "snug-section-wrap",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Placeholder only. It shows in the theme editor and renders nothing on the live store."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "[EDIT] Heading (editor preview only)",
+      "default": "The collection,"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent",
+      "label": "[EDIT] Heading italic accent",
+      "default": "arriving soon."
+    },
+    {
+      "type": "textarea",
+      "id": "note",
+      "label": "Note for the team",
+      "default": "Product grid, variant picker, product page and collection layout are still being decided. Nothing here shows on the live store."
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Background",
+      "options": [
+        { "value": "cream", "label": "Cream" },
+        { "value": "cream-dark", "label": "Warm cream" },
+        { "value": "white", "label": "White" }
+      ],
+      "default": "cream"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 96
+    }
+  ],
+  "presets": [
+    {
+      "name": "Snugglez grid (hole)"
+    }
+  ]
+}
+{% endschema %}

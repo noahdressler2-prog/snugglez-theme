@@ -1,0 +1,14 @@
+{% comment %}
+  Snugglez: loads the italic cut of the heading font for the *accent line*.
+  Sense only loads the upright heading face, so each Snugglez section renders this.
+  Duplicate @font-face rules are harmless; the browser downloads the file once.
+
+  Usage:
+  {% render 'snugglez-fonts' %}
+{% endcomment %}
+{%- assign snug_accent_font = settings.type_header_font | font_modify: 'style', 'italic' -%}
+{%- if snug_accent_font -%}
+  {% style %}
+    {{ snug_accent_font | font_face: font_display: 'swap' }}
+  {% endstyle %}
+{%- endif -%}

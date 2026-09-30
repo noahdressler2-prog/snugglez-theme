@@ -1,0 +1,1525 @@
+/*
+ * Snugglez brand layer for Sense.
+ * Everything is scoped under .snugglez (the class on <body>), so removing that class
+ * or this stylesheet returns Sense to stock. No !important is used anywhere.
+ *
+ * Contrast (WCAG 2.1, checked 2026-09-30):
+ *   cocoa on cream 10.62 · cream-dark 9.34 · white 11.42 · blush 7.63
+ *   cream on cocoa 10.62 · champagne on cocoa 5.77 · blush on cocoa 7.63
+ *   rose-text on cream 5.57 · cream-dark 4.90 · white 5.99 · blush 4.00 (large text only)
+ *   champagne on cream 1.84 and blush-deep on cream 2.97: decorative use only
+ */
+
+/* -------------------------------------------------------------------------
+   1. Tokens
+   ------------------------------------------------------------------------- */
+.snugglez {
+  --snug-cream: #fbf6ef;
+  --snug-cream-dark: #f1e7da;
+  --snug-blush: #f2c9d0;
+  --snug-blush-deep: #c9798a; /* decorative only */
+  --snug-rose-text: #9a4a5c; /* links + small accent text */
+  --snug-champagne: #d4b47a;
+  --snug-cocoa: #4a3438;
+  --snug-white: #ffffff;
+
+  /* Soft tints for placeholders and decoration (never used for text) */
+  --snug-petal: #f8e3e6;
+  --snug-champagne-tint: #f3e6cc;
+  --snug-hairline: rgba(212, 180, 122, 0.55);
+
+  --snug-radius-card: 16px;
+  --snug-radius-media: 14px;
+  --snug-radius-pill: 999px;
+  --snug-shadow-soft: 0 1px 2px rgba(74, 52, 56, 0.04), 0 18px 40px -24px rgba(74, 52, 56, 0.22);
+  --snug-shadow-lift: 0 2px 4px rgba(74, 52, 56, 0.05), 0 28px 50px -26px rgba(74, 52, 56, 0.3);
+  --snug-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Default surface (cream). Sections swap these with .snug-bg--* */
+  --snug-bg: var(--snug-cream);
+  --snug-fg: var(--snug-cocoa);
+  --snug-accent-ink: var(--snug-rose-text);
+  --snug-link: var(--snug-rose-text);
+  --snug-line: var(--snug-hairline);
+  --snug-ring: var(--snug-rose-text);
+  --snug-btn-bg: var(--snug-cocoa);
+  --snug-btn-fg: var(--snug-cream);
+  --snug-btn2-fg: var(--snug-cocoa);
+  --snug-btn2-hover-bg: var(--snug-blush);
+  --snug-btn2-hover-fg: var(--snug-cocoa);
+
+  /* Brand system: pill buttons across Sense (overrides the theme setting's value). */
+  --buttons-radius: 40px;
+  --buttons-radius-outset: 41px;
+}
+
+/* -------------------------------------------------------------------------
+   2. Surfaces
+   ------------------------------------------------------------------------- */
+.snugglez .snug-bg--cream,
+.snugglez .snug-bg--cream-dark,
+.snugglez .snug-bg--white,
+.snugglez .snug-bg--blush,
+.snugglez .snug-bg--cocoa {
+  background-color: var(--snug-bg);
+  color: var(--snug-fg);
+}
+
+.snugglez .snug-bg--cream {
+  --snug-bg: var(--snug-cream);
+}
+
+.snugglez .snug-bg--cream-dark {
+  --snug-bg: var(--snug-cream-dark);
+}
+
+.snugglez .snug-bg--white {
+  --snug-bg: var(--snug-white);
+}
+
+.snugglez .snug-bg--blush {
+  --snug-bg: var(--snug-blush);
+  /* rose-text is 4.00:1 on blush: fine for heading-size accents, too low for small text */
+  --snug-link: var(--snug-cocoa);
+  --snug-ring: var(--snug-cocoa);
+  --snug-btn2-hover-bg: var(--snug-cream);
+}
+
+.snugglez .snug-bg--cocoa {
+  --snug-bg: var(--snug-cocoa);
+  --snug-fg: var(--snug-cream);
+  --snug-accent-ink: var(--snug-blush);
+  --snug-link: var(--snug-blush);
+  --snug-ring: var(--snug-champagne);
+  --snug-line: rgba(212, 180, 122, 0.4);
+  --snug-btn-bg: var(--snug-cream);
+  --snug-btn-fg: var(--snug-cocoa);
+  --snug-btn2-fg: var(--snug-cream);
+}
+
+/* -------------------------------------------------------------------------
+   3. Type
+   ------------------------------------------------------------------------- */
+.snugglez .snug-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin: 0 0 2rem;
+  font-family: var(--font-body-family);
+  font-size: 1.15rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--snug-fg);
+}
+
+.snugglez .snug-eyebrow::before {
+  content: '';
+  flex: 0 0 auto;
+  width: 3.2rem;
+  height: 1px;
+  background: var(--snug-champagne);
+}
+
+.snugglez .snug-section-head--center .snug-eyebrow::after {
+  content: '';
+  flex: 0 0 auto;
+  width: 3.2rem;
+  height: 1px;
+  background: var(--snug-champagne);
+}
+
+.snugglez .snug-display,
+.snugglez .snug-h2 {
+  margin: 0;
+  font-family: var(--font-heading-family);
+  font-style: normal;
+  font-weight: var(--font-heading-weight);
+  color: var(--snug-fg);
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+.snugglez .snug-display {
+  font-size: clamp(4.6rem, 2.6rem + 6.4vw, 10.4rem);
+  line-height: 0.96;
+  letter-spacing: -0.015em;
+}
+
+.snugglez .snug-h2 {
+  font-size: clamp(3.4rem, 2.4rem + 2.8vw, 5.8rem);
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+}
+
+.snugglez .snug-accent {
+  font-family: var(--font-heading-family);
+  font-style: italic;
+  font-weight: var(--font-heading-weight);
+  color: var(--snug-accent-ink);
+}
+
+.snugglez .snug-accent--line {
+  display: block;
+}
+
+.snugglez .snug-sparkle {
+  width: 1em;
+  height: 1em;
+  flex: 0 0 auto;
+  color: var(--snug-champagne);
+}
+
+/* -------------------------------------------------------------------------
+   4. Buttons and links
+   ------------------------------------------------------------------------- */
+.snugglez .snug-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  min-height: 5.2rem;
+  padding: 1.4rem 3.4rem;
+  border: 1px solid transparent;
+  border-radius: var(--snug-radius-pill);
+  font-family: var(--font-body-family);
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.35s var(--snug-ease), color 0.35s var(--snug-ease),
+    box-shadow 0.35s var(--snug-ease), transform 0.35s var(--snug-ease);
+}
+
+.snugglez .snug-btn--primary {
+  background-color: var(--snug-btn-bg);
+  color: var(--snug-btn-fg);
+}
+
+/* Hover: a fine champagne halo, like a ring around a pearl */
+.snugglez .snug-btn--primary:hover {
+  box-shadow: 0 0 0 3px var(--snug-bg), 0 0 0 4px var(--snug-champagne);
+}
+
+.snugglez .snug-btn--secondary {
+  background-color: transparent;
+  border-color: var(--snug-champagne);
+  color: var(--snug-btn2-fg);
+}
+
+.snugglez .snug-btn--secondary:hover {
+  background-color: var(--snug-btn2-hover-bg);
+  color: var(--snug-btn2-hover-fg);
+}
+
+.snugglez .snug-btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.snugglez .snug-btn:focus-visible {
+  outline: 2px solid var(--snug-ring);
+  outline-offset: 4px;
+  box-shadow: none;
+}
+
+.snugglez .snug-btn--secondary:focus-visible {
+  background-color: var(--snug-btn2-hover-bg);
+  color: var(--snug-btn2-hover-fg);
+}
+
+.snugglez .snug-btn__arrow {
+  display: inline-flex;
+  width: 1.4rem;
+  transition: transform 0.35s var(--snug-ease);
+}
+
+.snugglez .snug-btn__arrow svg {
+  width: 100%;
+  height: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .snugglez .snug-btn:hover {
+    transform: translateY(-1px);
+  }
+
+  .snugglez .snug-btn:hover .snug-btn__arrow {
+    transform: translateX(3px);
+  }
+}
+
+/* -------------------------------------------------------------------------
+   5. Shared layout helpers
+   ------------------------------------------------------------------------- */
+.snugglez .snug-section-pad {
+  padding-top: calc(var(--snug-pt, 80px) * 0.6);
+  padding-bottom: calc(var(--snug-pb, 80px) * 0.6);
+}
+
+@media screen and (min-width: 750px) {
+  .snugglez .snug-section-pad {
+    padding-top: var(--snug-pt, 80px);
+    padding-bottom: var(--snug-pb, 80px);
+  }
+}
+
+.snugglez .snug-section-head {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 4rem;
+}
+
+.snugglez .snug-section-head--center {
+  align-items: center;
+  text-align: center;
+}
+
+.snugglez .snug-section-head--left {
+  align-items: flex-start;
+  text-align: left;
+}
+
+@media screen and (min-width: 990px) {
+  .snugglez .snug-section-head {
+    margin-bottom: 5.6rem;
+  }
+}
+
+.snugglez .snug-media {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.snugglez .snug-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Arch: a true semicircle on top, soft corners below. The vertical radius is
+   50% of the width expressed as a % of the height, so it follows the ratio. */
+.snugglez .snug-shape--arch {
+  border-radius: 50% 50% var(--snug-radius-media) var(--snug-radius-media) / var(--snug-arch-v, 40%)
+    var(--snug-arch-v, 40%) var(--snug-radius-media) var(--snug-radius-media);
+}
+
+.snugglez .snug-shape--rounded {
+  border-radius: var(--snug-radius-card);
+}
+
+/* -------------------------------------------------------------------------
+   6. Holes and photo placeholders
+   ------------------------------------------------------------------------- */
+.snugglez .snug-hole {
+  position: relative;
+  padding: 3.2rem 2rem;
+  border: 2px dashed var(--snug-champagne);
+  border-radius: var(--snug-radius-card);
+  background: repeating-linear-gradient(135deg, rgba(242, 201, 208, 0.22) 0 12px, transparent 12px 24px),
+    var(--snug-cream);
+  color: var(--snug-cocoa);
+  text-align: center;
+}
+
+.snugglez .snug-hole + * {
+  margin-top: 3.2rem;
+}
+
+.snugglez .snug-hole__note {
+  max-width: 58ch;
+  margin: 1.4rem auto 0;
+  font-size: 1.4rem;
+  line-height: 1.6;
+}
+
+.snugglez .snug-hole__tag {
+  display: inline-block;
+  max-width: calc(100% - 2rem);
+  padding: 0.7rem 1.2rem;
+  border-radius: var(--snug-radius-pill);
+  background: var(--snug-cocoa);
+  color: var(--snug-cream);
+  font-family: var(--font-body-family);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-align: center;
+  white-space: normal;
+}
+
+.snugglez .snug-hole__tag--float,
+.snugglez .snug-hole__tag--top {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+}
+
+.snugglez .snug-hole__tag--float {
+  bottom: 1.2rem;
+}
+
+.snugglez .snug-hole__tag--top {
+  top: 42%;
+}
+
+.snugglez .snug-photo-ph {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: 16rem;
+  color: var(--snug-cocoa);
+  background: radial-gradient(circle at 1px 1px, rgba(212, 180, 122, 0.45) 1px, transparent 1.6px) 0 0 / 18px 18px,
+    linear-gradient(150deg, var(--snug-blush) 0%, var(--snug-petal) 48%, var(--snug-cream) 100%);
+}
+
+.snugglez .snug-photo-ph--cream {
+  background: radial-gradient(circle at 1px 1px, rgba(212, 180, 122, 0.45) 1px, transparent 1.6px) 0 0 / 18px 18px,
+    linear-gradient(150deg, var(--snug-cream-dark) 0%, var(--snug-cream) 55%, var(--snug-petal) 100%);
+}
+
+.snugglez .snug-photo-ph--petal {
+  background: radial-gradient(circle at 1px 1px, rgba(212, 180, 122, 0.45) 1px, transparent 1.6px) 0 0 / 18px 18px,
+    linear-gradient(200deg, var(--snug-petal) 0%, var(--snug-blush) 100%);
+}
+
+.snugglez .snug-photo-ph--champagne {
+  background: radial-gradient(circle at 1px 1px, rgba(212, 180, 122, 0.5) 1px, transparent 1.6px) 0 0 / 18px 18px,
+    linear-gradient(160deg, var(--snug-champagne-tint) 0%, var(--snug-cream) 60%, var(--snug-petal) 100%);
+}
+
+.snugglez .snug-photo-ph--design {
+  outline: 2px dashed var(--snug-champagne);
+  outline-offset: -10px;
+}
+
+.snugglez .snug-photo-ph__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.snugglez .snug-photo-ph__icon {
+  display: inline-flex;
+  width: 2.6rem;
+  height: 2.6rem;
+  opacity: 0.8;
+}
+
+.snugglez .snug-photo-ph__icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+.snugglez .snug-photo-ph__label {
+  font-family: var(--font-heading-family);
+  font-size: 2rem;
+  font-style: italic;
+  font-weight: var(--font-heading-weight);
+  line-height: 1.2;
+}
+
+/* -------------------------------------------------------------------------
+   7. Hero
+   ------------------------------------------------------------------------- */
+.snugglez .snug-hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.snugglez .snug-hero--h-small {
+  --snug-hero-min: 56rem;
+  --snug-hero-ratio: 1 / 1;
+  --snug-arch-v: 50%;
+  --snug-hero-min-m: 60svh;
+}
+
+.snugglez .snug-hero--h-medium {
+  --snug-hero-min: min(84svh, 88rem);
+  --snug-hero-ratio: 4 / 5;
+  --snug-arch-v: 40%;
+  --snug-hero-min-m: 76svh;
+}
+
+.snugglez .snug-hero--h-full {
+  --snug-hero-min: 100svh;
+  --snug-hero-ratio: 3 / 4;
+  --snug-arch-v: 37.5%;
+  --snug-hero-min-m: 100svh;
+}
+
+.snugglez .snug-hero__content > :last-child {
+  margin-bottom: 0;
+}
+
+.snugglez .snug-hero__subtext {
+  max-width: 42ch;
+  margin: 2.4rem 0 0;
+  font-size: 1.7rem;
+  line-height: 1.7;
+  color: var(--snug-fg);
+}
+
+.snugglez .snug-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin-top: 3.6rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .snugglez .snug-hero__content {
+    animation: snugRise 0.9s var(--snug-ease) both;
+  }
+
+  .snugglez .snug-hero__visual {
+    animation: snugFade 1.2s var(--snug-ease) 0.1s both;
+  }
+}
+
+@keyframes snugRise {
+  from {
+    opacity: 0;
+    transform: translateY(1.6rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes snugFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Split layout */
+.snugglez .snug-hero--split .snug-hero__inner {
+  display: grid;
+  gap: 4rem;
+  padding-top: 3.2rem;
+  padding-bottom: 5.6rem;
+}
+
+.snugglez .snug-hero--split.snug-hero--image-first .snug-hero__visual {
+  order: -1;
+}
+
+.snugglez .snug-hero__visual {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  padding: 1.6rem 0 0;
+}
+
+.snugglez .snug-hero__frame {
+  position: relative;
+  z-index: 1;
+  width: min(86%, 52rem);
+  aspect-ratio: var(--snug-hero-ratio);
+  overflow: hidden;
+  background: var(--snug-cream-dark);
+  box-shadow: var(--snug-shadow-soft);
+}
+
+.snugglez .snug-hero__frame .snug-hero__picture img {
+  object-position: var(--snug-fp-m, center);
+}
+
+@media screen and (min-width: 750px) {
+  .snugglez .snug-hero__frame .snug-hero__picture img {
+    object-position: var(--snug-fp-d, center);
+  }
+}
+
+/* A soft blush moon behind the arch, plus a fine champagne orbit */
+.snugglez .snug-hero__blob {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  right: 2%;
+  width: 72%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 30%, var(--snug-petal) 0%, var(--snug-blush) 62%, rgba(242, 201, 208, 0.6) 100%);
+}
+
+.snugglez .snug-hero__halo {
+  position: absolute;
+  z-index: 0;
+  bottom: 6%;
+  left: 2%;
+  width: 46%;
+  aspect-ratio: 1;
+  border: 1px solid var(--snug-champagne);
+  border-radius: 50%;
+}
+
+.snugglez .snug-hero__badge {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  bottom: 4%;
+  width: 9.6rem;
+  filter: drop-shadow(0 10px 18px rgba(74, 52, 56, 0.12));
+}
+
+.snugglez .snug-hero__badge svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.snugglez .snug-hero__badge-bg {
+  fill: var(--snug-cream);
+}
+
+.snugglez .snug-hero__badge-ring {
+  stroke: var(--snug-champagne);
+  stroke-width: 0.8;
+}
+
+.snugglez .snug-hero__badge-text {
+  fill: var(--snug-cocoa);
+  font-family: var(--font-body-family);
+  font-size: 9.6px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+}
+
+.snugglez .snug-hero__badge-star {
+  fill: var(--snug-rose-text);
+}
+
+@media screen and (min-width: 990px) {
+  .snugglez .snug-hero--split .snug-hero__inner {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    align-items: center;
+    gap: 6.4rem;
+    min-height: var(--snug-hero-min);
+    padding-top: 4.8rem;
+    padding-bottom: 7.2rem;
+  }
+
+  .snugglez .snug-hero--split.snug-hero--image-first .snug-hero__visual {
+    order: 0;
+  }
+
+  .snugglez .snug-hero__visual {
+    padding: 2.4rem 0;
+  }
+
+  .snugglez .snug-hero__frame {
+    width: min(100%, 50rem);
+  }
+
+  .snugglez .snug-hero__badge {
+    width: 13rem;
+    left: -1.6rem;
+    bottom: 10%;
+  }
+}
+
+/* Overlay layout */
+.snugglez .snug-hero--overlay {
+  display: flex;
+  align-items: flex-end;
+  min-height: var(--snug-hero-min-m);
+}
+
+.snugglez .snug-hero__bg {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+}
+
+.snugglez .snug-hero__bg .snug-hero__picture img {
+  object-position: var(--snug-fp-m, center);
+}
+
+.snugglez .snug-hero__scrim {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(74, 52, 56, calc(var(--snug-scrim, 0.35) + 0.25)) 0%,
+    rgba(74, 52, 56, var(--snug-scrim, 0.35)) 45%,
+    rgba(74, 52, 56, calc(var(--snug-scrim, 0.35) * 0.4)) 100%
+  );
+}
+
+.snugglez .snug-hero--overlay .snug-hero__inner {
+  width: 100%;
+  padding-top: 6.4rem;
+  padding-bottom: 5.6rem;
+}
+
+.snugglez .snug-hero--overlay.snug-hero--has-image {
+  --snug-fg: var(--snug-cream);
+  --snug-accent-ink: var(--snug-blush);
+  --snug-ring: var(--snug-cream);
+  --snug-btn-bg: var(--snug-cream);
+  --snug-btn-fg: var(--snug-cocoa);
+  --snug-bg: var(--snug-cocoa);
+  color: var(--snug-cream);
+}
+
+.snugglez .snug-hero__content--center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.snugglez .snug-hero__content--center .snug-hero__subtext {
+  margin-inline: auto;
+}
+
+.snugglez .snug-hero__content--center .snug-hero__actions {
+  justify-content: center;
+}
+
+.snugglez .snug-hero--overlay .snug-hero__content {
+  max-width: 68rem;
+}
+
+@media screen and (min-width: 750px) {
+  .snugglez .snug-hero--overlay {
+    align-items: center;
+    min-height: var(--snug-hero-min);
+  }
+
+  .snugglez .snug-hero__bg .snug-hero__picture img {
+    object-position: var(--snug-fp-d, center);
+  }
+}
+
+/* -------------------------------------------------------------------------
+   8. Ribbon
+   ------------------------------------------------------------------------- */
+.snugglez .snug-ribbon {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  padding: 1.8rem 0;
+  border-block: 1px solid var(--snug-line);
+}
+
+.snugglez .snug-ribbon__track {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 3.2rem;
+  width: max-content;
+}
+
+.snugglez .snug-ribbon__list {
+  display: flex;
+  align-items: center;
+  gap: 3.2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.snugglez .snug-ribbon__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 3.2rem;
+  font-family: var(--font-heading-family);
+  font-size: 2.2rem;
+  font-style: italic;
+  font-weight: var(--font-heading-weight);
+  line-height: 1.2;
+  white-space: nowrap;
+  color: var(--snug-fg);
+}
+
+.snugglez .snug-ribbon__item .snug-sparkle {
+  width: 1.2rem;
+  height: 1.2rem;
+  color: var(--snug-rose-text);
+}
+
+.snugglez .snug-bg--cocoa .snug-ribbon__item .snug-sparkle,
+.snugglez .snug-ribbon.snug-bg--cocoa .snug-sparkle {
+  color: var(--snug-champagne);
+}
+
+@media screen and (min-width: 750px) {
+  .snugglez .snug-ribbon {
+    padding: 2.2rem 0;
+  }
+
+  .snugglez .snug-ribbon__item {
+    font-size: 2.8rem;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   9. Category tiles
+   ------------------------------------------------------------------------- */
+.snugglez .snug-tiles__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3.6rem 1.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.snugglez .snug-tiles--stagger .snug-tile:nth-child(even) {
+  margin-top: 3.2rem;
+}
+
+@media screen and (min-width: 990px) {
+  .snugglez .snug-tiles__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 4.8rem 2.8rem;
+  }
+
+  .snugglez .snug-tiles__grid--1 {
+    grid-template-columns: minmax(0, 32rem);
+    justify-content: center;
+  }
+
+  .snugglez .snug-tiles__grid--2 {
+    grid-template-columns: repeat(2, minmax(0, 32rem));
+    justify-content: center;
+  }
+
+  .snugglez .snug-tiles__grid--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .snugglez .snug-tiles--stagger .snug-tile:nth-child(even) {
+    margin-top: 6.4rem;
+  }
+}
+
+.snugglez .snug-tile__link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.snugglez .snug-tile__link:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.snugglez .snug-tile__link:focus-visible {
+  outline: 2px solid var(--snug-ring);
+  outline-offset: 6px;
+  border-radius: var(--snug-radius-card);
+  box-shadow: none;
+}
+
+.snugglez .snug-tile__media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--snug-cream-dark);
+  box-shadow: var(--snug-shadow-soft);
+  transition: transform 0.6s var(--snug-ease), box-shadow 0.6s var(--snug-ease);
+}
+
+.snugglez .snug-tile__media.snug-shape--arch {
+  --snug-arch-v: 40%;
+}
+
+.snugglez .snug-tile__text {
+  padding-top: 2rem;
+  text-align: center;
+}
+
+.snugglez .snug-tile__label {
+  margin: 0;
+  font-family: var(--font-heading-family);
+  font-size: clamp(2.1rem, 1.7rem + 0.9vw, 2.8rem);
+  font-style: normal;
+  font-weight: var(--font-heading-weight);
+  line-height: 1.12;
+  letter-spacing: 0;
+  color: var(--snug-fg);
+}
+
+.snugglez .snug-tile__note {
+  margin: 0.6rem 0 0;
+  font-size: 1.35rem;
+  line-height: 1.5;
+  color: var(--snug-fg);
+}
+
+.snugglez .snug-tile__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 1rem;
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid var(--snug-line);
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--snug-link);
+}
+
+.snugglez .snug-tile__arrow {
+  display: inline-flex;
+  width: 1.2rem;
+  transition: transform 0.4s var(--snug-ease);
+}
+
+.snugglez .snug-tile__arrow svg {
+  width: 100%;
+  height: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  .snugglez a.snug-tile__link:hover .snug-tile__media {
+    transform: translateY(-6px);
+    box-shadow: var(--snug-shadow-lift);
+  }
+
+  .snugglez a.snug-tile__link:hover .snug-tile__arrow {
+    transform: translateX(3px);
+  }
+}
+
+.snugglez a.snug-tile__link:hover .snug-tile__cta {
+  border-bottom-color: currentColor;
+}
+
+/* -------------------------------------------------------------------------
+   10. Product grid hole (editor only)
+   ------------------------------------------------------------------------- */
+.snugglez .snug-skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.6rem;
+  margin: 2.8rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media screen and (min-width: 990px) {
+  .snugglez .snug-skeleton-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2.4rem;
+  }
+}
+
+.snugglez .snug-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.snugglez .snug-skeleton__media {
+  aspect-ratio: 4 / 5;
+  border-radius: var(--snug-radius-media);
+  background: linear-gradient(150deg, var(--snug-cream-dark), var(--snug-petal));
+}
+
+.snugglez .snug-skeleton__bar {
+  width: 70%;
+  height: 1rem;
+  margin: 0 auto;
+  border-radius: var(--snug-radius-pill);
+  background: var(--snug-cream-dark);
+}
+
+.snugglez .snug-skeleton__bar--short {
+  width: 36%;
+}
+
+/* -------------------------------------------------------------------------
+   11. Social feed
+   ------------------------------------------------------------------------- */
+.snugglez .snug-social__head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.4rem;
+  margin-bottom: 3.6rem;
+}
+
+.snugglez .snug-social__handle {
+  margin: 1.2rem 0 0;
+  font-family: var(--font-heading-family);
+  font-size: 2.2rem;
+  font-style: italic;
+  font-weight: var(--font-heading-weight);
+  color: var(--snug-accent-ink);
+}
+
+.snugglez .snug-social__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.snugglez .snug-social__tile {
+  display: block;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: var(--snug-radius-media);
+  background: var(--snug-cream-dark);
+  transition: transform 0.5s var(--snug-ease), box-shadow 0.5s var(--snug-ease);
+}
+
+.snugglez .snug-social__tile .snug-photo-ph {
+  min-height: 0;
+}
+
+.snugglez .snug-social__tile .snug-photo-ph__label {
+  font-size: 1.5rem;
+}
+
+.snugglez .snug-social__tile .snug-hole__tag {
+  font-size: 0.85rem;
+  padding: 0.5rem 0.8rem;
+}
+
+.snugglez a.snug-social__tile:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.snugglez a.snug-social__tile:focus-visible {
+  outline: 2px solid var(--snug-ring);
+  outline-offset: 3px;
+}
+
+@media screen and (min-width: 750px) {
+  .snugglez .snug-social__head {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 4.8rem;
+  }
+
+  .snugglez .snug-social__grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 1.6rem;
+    padding-bottom: 3.2rem;
+  }
+
+  .snugglez .snug-social__item:nth-child(even) {
+    transform: translateY(3.2rem);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  .snugglez a.snug-social__tile:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--snug-shadow-lift);
+  }
+}
+
+/* -------------------------------------------------------------------------
+   12. Newsletter
+   ------------------------------------------------------------------------- */
+.snugglez .snug-news__card {
+  position: relative;
+  display: grid;
+  gap: 3.2rem;
+  overflow: hidden;
+  isolation: isolate;
+  padding: 4.8rem 2.4rem;
+  border-radius: 24px;
+}
+
+.snugglez .snug-news__ring {
+  position: absolute;
+  z-index: -1;
+  aspect-ratio: 1;
+  border: 1px solid var(--snug-champagne);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.snugglez .snug-news__ring--one {
+  top: -16rem;
+  right: -14rem;
+  width: 36rem;
+}
+
+.snugglez .snug-news__ring--two {
+  bottom: -14rem;
+  left: -10rem;
+  width: 26rem;
+  background: rgba(255, 255, 255, 0.28);
+  border-color: transparent;
+}
+
+.snugglez .snug-news__text {
+  max-width: 44ch;
+  margin: 2rem 0 0;
+  font-size: 1.6rem;
+  line-height: 1.7;
+  color: var(--snug-fg);
+}
+
+.snugglez .snug-news__form {
+  width: 100%;
+}
+
+.snugglez .snug-field__label {
+  display: block;
+  margin-bottom: 1rem;
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--snug-fg);
+}
+
+.snugglez .snug-field__row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem;
+  border: 1px solid rgba(74, 52, 56, 0.6); /* 3.54:1 on white */
+  border-radius: var(--snug-radius-pill);
+  background: var(--snug-white);
+  transition: box-shadow 0.3s var(--snug-ease), border-color 0.3s var(--snug-ease);
+}
+
+.snugglez .snug-field__row:focus-within {
+  border-color: var(--snug-cocoa);
+  box-shadow: 0 0 0 3px var(--snug-bg), 0 0 0 5px var(--snug-ring);
+}
+
+.snugglez .snug-field--error .snug-field__row {
+  border: 2px solid var(--snug-rose-text); /* 5.99:1 on white */
+}
+
+.snugglez .snug-field__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 4.4rem;
+  margin: 0;
+  padding: 0 0 0 1.8rem;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-body-family);
+  font-size: 1.6rem;
+  letter-spacing: 0.02em;
+  color: var(--snug-cocoa);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.snugglez .snug-field__input::placeholder {
+  color: rgba(74, 52, 56, 0.72);
+  opacity: 1;
+}
+
+.snugglez .snug-field__input:focus,
+.snugglez .snug-field__input:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.snugglez .snug-field__submit {
+  flex: 0 0 auto;
+  min-height: 4.4rem;
+  padding: 1rem 2.4rem;
+  --snug-btn-bg: var(--snug-cocoa);
+  --snug-btn-fg: var(--snug-cream);
+  --snug-bg: var(--snug-white);
+}
+
+.snugglez .snug-field__error {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin: 1.2rem 0 0;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  color: var(--snug-fg);
+}
+
+.snugglez .snug-field__error-icon {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--snug-rose-text);
+  color: var(--snug-white);
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.snugglez .snug-news__fine {
+  margin: 1.2rem 0 0 1.8rem;
+  font-size: 1.25rem;
+  letter-spacing: 0.04em;
+  color: var(--snug-fg);
+}
+
+.snugglez .snug-news__success {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  padding: 2rem 2.4rem;
+  border: 1px solid var(--snug-champagne);
+  border-radius: var(--snug-radius-card);
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--snug-cocoa);
+}
+
+.snugglez .snug-news__success:focus {
+  outline: none;
+}
+
+.snugglez .snug-news__success:focus-visible {
+  outline: 2px solid var(--snug-ring);
+  outline-offset: 3px;
+}
+
+.snugglez .snug-news__success-mark {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: 50%;
+  background: var(--snug-cocoa);
+}
+
+.snugglez .snug-news__success-mark .snug-sparkle {
+  width: 1.8rem;
+  height: 1.8rem;
+  color: var(--snug-champagne);
+}
+
+.snugglez .snug-news__success-title {
+  margin: 0;
+  font-family: var(--font-heading-family);
+  font-size: 2.6rem;
+  font-weight: var(--font-heading-weight);
+  line-height: 1.15;
+}
+
+@media screen and (min-width: 990px) {
+  .snugglez .snug-news__card {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 6.4rem;
+    padding: 8.8rem 8rem;
+  }
+
+  .snugglez .snug-news__ring--one {
+    top: -22rem;
+    right: -12rem;
+    width: 52rem;
+  }
+
+  .snugglez .snug-news__ring--two {
+    bottom: -20rem;
+    left: 30%;
+    width: 36rem;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   13. Footer
+   ------------------------------------------------------------------------- */
+.snugglez .snug-footer {
+  padding-top: 6.4rem;
+  overflow: hidden;
+}
+
+.snugglez .snug-footer__top {
+  display: grid;
+  gap: 4rem;
+}
+
+.snugglez .snug-footer__name {
+  display: inline-block;
+  font-family: var(--font-heading-family);
+  font-size: 4rem;
+  font-weight: var(--font-heading-weight);
+  line-height: 1;
+  color: var(--snug-cream);
+  text-decoration: none;
+}
+
+.snugglez .snug-footer__logo {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.snugglez .snug-footer__line {
+  max-width: 34ch;
+  margin: 2rem 0 0;
+  font-size: 1.5rem;
+  line-height: 1.7;
+  color: var(--snug-cream);
+}
+
+.snugglez .snug-footer__line .snug-accent {
+  margin-top: 0.4rem;
+  font-size: 2.2rem;
+  line-height: 1.3;
+}
+
+.snugglez .snug-footer__heading {
+  margin: 0 0 1.8rem;
+  font-family: var(--font-body-family);
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--snug-champagne); /* 5.77:1 on cocoa */
+}
+
+.snugglez .snug-footer__links {
+  display: grid;
+  gap: 1.1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.snugglez .snug-footer__link {
+  font-size: 1.5rem;
+  line-height: 1.5;
+  color: var(--snug-cream);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.4rem;
+  text-decoration-thickness: 1px;
+  transition: text-decoration-color 0.3s var(--snug-ease);
+}
+
+.snugglez .snug-footer__link:hover,
+.snugglez .snug-footer__link[aria-current='page'] {
+  text-decoration-color: var(--snug-champagne);
+}
+
+.snugglez .snug-footer__link:focus-visible,
+.snugglez .snug-footer__name:focus-visible {
+  outline: 2px solid var(--snug-champagne);
+  outline-offset: 3px;
+  box-shadow: none;
+}
+
+.snugglez .snug-footer__note {
+  max-width: 30ch;
+  margin: 0 0 1.2rem;
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: var(--snug-cream);
+}
+
+.snugglez .snug-footer__email {
+  overflow-wrap: anywhere;
+  text-decoration-color: var(--snug-hairline);
+}
+
+.snugglez .snug-footer__brand .snug-hole__tag {
+  margin-top: 2.4rem;
+}
+
+/* Social icons (Sense's social-icons snippet, restyled) */
+.snugglez .snug-footer__social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 2.8rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.snugglez .snug-footer__social .list-social__link {
+  display: inline-grid;
+  place-items: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  padding: 0;
+  border: 1px solid var(--snug-line);
+  border-radius: 50%;
+  color: var(--snug-cream);
+  transition: background-color 0.3s var(--snug-ease), color 0.3s var(--snug-ease), border-color 0.3s var(--snug-ease);
+}
+
+.snugglez .snug-footer__social .list-social__link:hover {
+  background-color: var(--snug-blush);
+  border-color: var(--snug-blush);
+  color: var(--snug-cocoa);
+}
+
+.snugglez .snug-footer__social .svg-wrapper {
+  display: inline-flex;
+  width: 1.8rem;
+  height: 1.8rem;
+}
+
+.snugglez .snug-footer__social svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* The oversized shop name: decoration only (aria-hidden), set in the heading italic */
+.snugglez .snug-footer__wordmark {
+  margin: 5.6rem 0 0;
+  font-family: var(--font-heading-family);
+  font-size: clamp(8rem, 21vw, 28rem);
+  font-style: italic;
+  font-weight: var(--font-heading-weight);
+  line-height: 0.8;
+  letter-spacing: -0.02em;
+  text-align: center;
+  white-space: nowrap;
+  color: rgba(212, 180, 122, 0.22);
+  user-select: none;
+}
+
+.snugglez .snug-footer__bottom {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  gap: 1.6rem;
+  margin-top: 2.4rem;
+  padding: 2.4rem 0 3.2rem;
+  border-top: 1px solid var(--snug-line);
+}
+
+.snugglez .snug-footer__copy {
+  margin: 0;
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+  color: var(--snug-cream);
+}
+
+.snugglez .snug-footer__pay-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.snugglez .snug-footer__pay-item svg {
+  display: block;
+  width: 3.8rem;
+  height: 2.4rem;
+}
+
+@media screen and (min-width: 750px) {
+  .snugglez .snug-footer {
+    padding-top: 8.8rem;
+  }
+
+  .snugglez .snug-footer__top {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5.6rem 4rem;
+  }
+
+  .snugglez .snug-footer__brand {
+    grid-column: 1 / -1;
+  }
+
+  .snugglez .snug-footer__bottom {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .snugglez .snug-footer__top {
+    grid-template-columns: minmax(0, 1.7fr) repeat(3, minmax(0, 1fr));
+  }
+
+  .snugglez .snug-footer__brand {
+    grid-column: auto;
+    padding-right: 4rem;
+  }
+
+  .snugglez .snug-footer__name {
+    font-size: 4.8rem;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   14. Sense header (settings + CSS only; Sense still runs cart, search, drawer)
+   ------------------------------------------------------------------------- */
+.snugglez .section-header .header-wrapper {
+  border-bottom: 1px solid var(--snug-hairline);
+}
+
+.snugglez .header__heading-link .h2 {
+  font-family: var(--font-heading-family);
+  font-size: clamp(2.8rem, 2.2rem + 1.2vw, 3.8rem);
+  font-weight: var(--font-heading-weight);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: var(--snug-cocoa);
+}
+
+.snugglez .header__menu-item {
+  font-family: var(--font-body-family);
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--snug-cocoa);
+}
+
+.snugglez .header__menu-item:hover span,
+.snugglez .header__active-menu-item {
+  text-decoration-color: var(--snug-champagne);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.6rem;
+}
+
+.snugglez .header__icon {
+  color: var(--snug-cocoa);
+}
+
+.snugglez .cart-count-bubble {
+  background-color: var(--snug-blush);
+  color: var(--snug-cocoa);
+}
+
+.snugglez .menu-drawer__menu-item {
+  font-family: var(--font-heading-family);
+  font-size: 2.4rem;
+  font-weight: var(--font-heading-weight);
+  letter-spacing: 0;
+}
