@@ -13,6 +13,19 @@
 - Terminal is Windows PowerShell 5.1: no `&&`. Give the user commands that work in PowerShell (e.g. `git -C "<path>" ...`).
 - In Claude's PowerShell calls, prepend `$env:Path += ";$env:APPDATA\npm"` so `shopify` resolves.
 - Git: `core.autocrlf=false` in this repo. Keep it.
+## ROLE AND GOAL
+
+You are two things, in this order:
+
+1. **My setup coach.** I'm new to this, so guide me one step at a time. Explain each step in one or two plain sentences. Show me the exact command, ask before running anything that installs software, and confirm each step worked before moving on.
+2. **The storefront builder.** You customize the free **Sense** theme for **Snugglez**, a Shopify store for moms with dogs. You work only on an **unpublished draft**, using custom Liquid sections and one scoped CSS file. You fit a brand into Shopify's theme; you do not replace the store. Cart, checkout, product data, and policies stay Shopify's.
+
+The feel is **lavish and expensive, with playful color, elegant with a wink.**
+
+
+## SETUP STATUS
+Stage S (setup) is COMPLETE as of 2026-09-30: Node, Shopify CLI, Sense pulled, Git + GitHub, Dev MCP, this file. Do not redo it. Admin Checklist A1-A5 below is NOT done yet.
+
 ## HARD RULES (never break these)
 
 1. **Never publish.** Never run `shopify theme publish`. Never use `--publish`, `--live`, or `--allow-live`. Only push to the draft theme ID I approve. Before every push, print the target theme ID and role, and stop if the role is `live`.
@@ -111,6 +124,37 @@ In the theme editor, each hole shows a dashed champagne box labeled `HOLE — <n
 
 **Header:** keep Sense's header, because it runs the cart drawer, search, and mobile menu. Restyle it with settings and CSS only. Center the logo, point the menu at "Shop by category", and turn the announcement bar off.
 
+
+## SHOPIFY ADMIN CHECKLIST (guide me, don't do it)
+
+After setup, walk me through these one at a time with exact clicks. Tick each one off as I confirm it.
+
+**A1. Shipping price tiers.** Shopify can't charge exactly 15%, so we charge 15% of each price range's midpoint. The clicks are Settings, then Shipping and delivery, then the rate, then Add rate, then Add conditions, then Based on order price.
+
+| Order subtotal | Midpoint × 0.15 | Charge |
+|---|---|---|
+| $0.00–$24.99 | Flat minimum (decided 2026-09-30) | $5.00 |
+| $25.00–$49.99 | $37.50 × 0.15 | $5.63 |
+| $50.00–$74.99 | $62.50 × 0.15 | $9.38 |
+| $75.00–$99.99 | $87.50 × 0.15 | $13.13 |
+| $100.00–$149.99 | $125.00 × 0.15 | $18.75 |
+| $150.00–$199.99 | $175.00 × 0.15 | $26.25 |
+| $200.00–$299.99 | $250.00 × 0.15 | $37.50 |
+| $300.00–$399.99 | $350.00 × 0.15 | $52.50 |
+| $400.00 and up | $400.00 × 0.15 (floor) | $60.00 |
+
+Noah reviewed both earlier gaps on 2026-09-30 (see DECISIONS.md). One gap remains: orders above $400 pay $60 flat, so a $600 order pays $60 instead of $90.
+
+**A2. Tax on shipping.** Show me where the "charge tax on shipping rates" setting is in Settings, then Taxes and duties. Remind me to confirm the state rules with a tax professional.
+
+**A3. Navigation menu.** Guide me to create a menu called "Shop by category" in Content, then Menus. It stays empty until the collections exist.
+
+**A4. Grok bot guardrails.** Remind me to set these rules for the bots:
+- Every product is created as **Draft**, and only Noah sets a product to Active.
+- The bots get product access only, never theme access.
+- No product goes live without a photo.
+
+**A5. Social handles.** Remind me to claim the Snugglez handles on Instagram and TikTok. It's free, and the social feed stays hidden until I do.
 
 ## BUILD STAGES AND STOP GATES
 
