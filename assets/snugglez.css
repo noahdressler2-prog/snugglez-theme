@@ -114,6 +114,14 @@
   color: var(--snug-fg);
 }
 
+@media screen and (max-width: 749px) {
+  .snugglez .snug-eyebrow {
+    gap: 1rem;
+    font-size: 1.05rem;
+    letter-spacing: 0.18em;
+  }
+}
+
 .snugglez .snug-eyebrow::before {
   content: '';
   flex: 0 0 auto;
@@ -358,8 +366,7 @@
   white-space: normal;
 }
 
-.snugglez .snug-hole__tag--float,
-.snugglez .snug-hole__tag--top {
+.snugglez .snug-hole__tag--float {
   position: absolute;
   z-index: 3;
   left: 50%;
@@ -369,10 +376,6 @@
 
 .snugglez .snug-hole__tag--float {
   bottom: 1.2rem;
-}
-
-.snugglez .snug-hole__tag--top {
-  top: 42%;
 }
 
 .snugglez .snug-photo-ph {
@@ -538,7 +541,7 @@
 .snugglez .snug-hero__frame {
   position: relative;
   z-index: 1;
-  width: min(86%, 52rem);
+  width: min(78%, 44rem);
   aspect-ratio: var(--snug-hero-ratio);
   overflow: hidden;
   background: var(--snug-cream-dark);
@@ -1404,7 +1407,8 @@
   letter-spacing: -0.02em;
   text-align: center;
   white-space: nowrap;
-  color: rgba(212, 180, 122, 0.22);
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(212, 180, 122, 0.55);
   user-select: none;
 }
 
