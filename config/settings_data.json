@@ -9,7 +9,8 @@
  */
 {
   "current": {
-    "logo_width": 70,
+    "logo": "shopify://shop_images/snugglez-logo-full.png",
+    "logo_width": 250,
     "type_header_font": "cormorant_n5",
     "heading_scale": 130,
     "type_body_font": "jost_n4",
@@ -140,60 +141,61 @@
         }
       }
     },
+    "content_for_index": [],
     "color_schemes": {
       "scheme-1": {
         "settings": {
-          "background": "#FBF6EF",
+          "background": "#fbf6ef",
           "background_gradient": "",
-          "text": "#4A3438",
-          "button": "#4A3438",
-          "button_label": "#FBF6EF",
-          "secondary_button_label": "#4A3438",
-          "shadow": "#4A3438"
+          "text": "#4a3438",
+          "button": "#4a3438",
+          "button_label": "#fbf6ef",
+          "secondary_button_label": "#4a3438",
+          "shadow": "#4a3438"
         }
       },
       "scheme-2": {
         "settings": {
-          "background": "#F1E7DA",
+          "background": "#f1e7da",
           "background_gradient": "",
-          "text": "#4A3438",
-          "button": "#4A3438",
-          "button_label": "#FBF6EF",
-          "secondary_button_label": "#4A3438",
-          "shadow": "#4A3438"
+          "text": "#4a3438",
+          "button": "#4a3438",
+          "button_label": "#fbf6ef",
+          "secondary_button_label": "#4a3438",
+          "shadow": "#4a3438"
         }
       },
       "scheme-3": {
         "settings": {
-          "background": "#4A3438",
+          "background": "#4a3438",
           "background_gradient": "",
-          "text": "#FBF6EF",
-          "button": "#FBF6EF",
-          "button_label": "#4A3438",
-          "secondary_button_label": "#FBF6EF",
-          "shadow": "#4A3438"
+          "text": "#fbf6ef",
+          "button": "#fbf6ef",
+          "button_label": "#4a3438",
+          "secondary_button_label": "#fbf6ef",
+          "shadow": "#4a3438"
         }
       },
       "scheme-4": {
         "settings": {
-          "background": "#F2C9D0",
+          "background": "#f2c9d0",
           "background_gradient": "",
-          "text": "#4A3438",
-          "button": "#4A3438",
-          "button_label": "#FBF6EF",
-          "secondary_button_label": "#4A3438",
-          "shadow": "#4A3438"
+          "text": "#4a3438",
+          "button": "#4a3438",
+          "button_label": "#fbf6ef",
+          "secondary_button_label": "#4a3438",
+          "shadow": "#4a3438"
         }
       },
       "scheme-5": {
         "settings": {
-          "background": "#FFFFFF",
+          "background": "#ffffff",
           "background_gradient": "",
-          "text": "#4A3438",
-          "button": "#4A3438",
-          "button_label": "#FBF6EF",
-          "secondary_button_label": "#4A3438",
-          "shadow": "#4A3438"
+          "text": "#4a3438",
+          "button": "#4a3438",
+          "button_label": "#fbf6ef",
+          "secondary_button_label": "#4a3438",
+          "shadow": "#4a3438"
         }
       }
     }
