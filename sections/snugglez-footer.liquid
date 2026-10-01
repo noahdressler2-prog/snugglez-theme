@@ -53,6 +53,8 @@
           <h2 class="snug-footer__heading">{{ section.settings.menu_heading | escape }}</h2>
           <ul class="snug-footer__links" role="list">
             {%- for link in shop_menu.links -%}
+              {%- comment -%} The header menu starts with Home; the footer Shop column skips it. {%- endcomment -%}
+              {%- if link.url == routes.root_url -%}{%- continue -%}{%- endif -%}
               <li>
                 <a
                   href="{{ link.url }}"
