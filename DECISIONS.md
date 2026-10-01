@@ -64,3 +64,8 @@ Remaining gap: orders above $400 still pay $60 (e.g. $600 → $60, not $90). Cha
 | 22 | Public domain | `snugglez.net` (per Noah, 2026-09-30) | Customer-facing domain. CLI commands still use `xsqnkn-r2.myshopify.com`. Revisit #12: a domain email (e.g. hello@snugglez.net) is now possible. |
 | 23 | Hero eyebrow wording | "For dogs & the people who spoil them" | Replaces "women" (Noah, 2026-09-30). Footer brand line still says "moms"; pending Noah. |
 | 24 | Footer brand line wording | "Luxe comforts for dogs and the people who spoil them." | Replaces "moms" (Noah, 2026-09-30), matching #23. |
+
+## Logo (2026-09-30)
+| # | Decision | Choice | Notes |
+|---|---|---|---|
+| 25 | Logo | **B3**: ear-monogram badge + champagne divider + italic "Snugglez" (blush z), full-width rule + "FOR DOGS & THE PEOPLE WHO SPOIL THEM" | Chosen by Noah 2026-09-30 from concepts 1+2 combined. Files in `C:\Shopify\snugglez-brand\logo` (outside the theme repo), text outlined (Cormorant 600/500 italic, Jost 400). Header uses the no-slogan `snugglez-logo-header` (slogan is unreadable at header size); favicon = `snugglez-badge-512.png`. Replaces build-spec rule "do not design a logo." Trademark search on "Snugglez" still pending. |
