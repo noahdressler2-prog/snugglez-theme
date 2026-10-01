@@ -44,7 +44,7 @@
         {%- if has_social -%}
           {%- render 'social-icons', class: 'snug-footer__social' -%}
         {%- elsif request.design_mode -%}
-          <span class="snug-hole__tag">HOLE — Social links (Theme settings › Social media)</span>
+          <span class="snug-hole__tag snug-hole__tag--inline">YOU ADD — Your Instagram / TikTok links. Theme settings (gear icon, left bar) › Social media. Icons appear here once a link is saved.</span>
         {%- endif -%}
       </div>
 
@@ -68,7 +68,7 @@
       {%- elsif request.design_mode -%}
         <div class="snug-footer__col">
           <h2 class="snug-footer__heading">{{ section.settings.menu_heading | escape }}</h2>
-          <span class="snug-hole__tag">HOLE — "Shop by category" menu</span>
+          <span class="snug-hole__tag snug-hole__tag--inline">YOU ADD — In Shopify admin go to Content › Menus › Add menu. Name it "Shop by category" and add your collections. Then click this footer › Shop menu › select it.</span>
         </div>
       {%- endif -%}
 
@@ -78,9 +78,7 @@
           {%- if section.settings.contact_note != blank -%}
             <p class="snug-footer__note">{{ section.settings.contact_note | escape }}</p>
           {%- endif -%}
-          <a href="mailto:{{ contact_email }}" class="snug-footer__link snug-footer__email">
-            {{- contact_email -}}
-          </a>
+          <p class="snug-footer__email">{{ contact_email | escape }}</p>
         </div>
       {%- endif -%}
 

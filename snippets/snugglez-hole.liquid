@@ -3,7 +3,8 @@
   Theme editor only. On the storefront it renders nothing.
 
   Accepts:
-  - name: {String} what belongs here, e.g. 'Product grid'
+  - name: {String} what belongs here and where to set it, e.g. 'Hero photo: click this section › Image'
+  - prefix: {String} optional tag prefix; default 'YOU ADD' (content Noah supplies). Use 'TO DECIDE' for open decisions.
   - note: {String} optional explanation shown under the tag
   - content: {String} optional markup rendered inside the box
 
@@ -12,7 +13,7 @@
 {% endcomment %}
 {%- if request.design_mode -%}
   <div class="snug-hole" role="note">
-    <span class="snug-hole__tag">HOLE — {{ name }}</span>
+    <span class="snug-hole__tag">{{ prefix | default: 'YOU ADD' }} — {{ name }}</span>
     {%- if note != blank -%}
       <p class="snug-hole__note">{{ note }}</p>
     {%- endif -%}

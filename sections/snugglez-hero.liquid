@@ -46,7 +46,7 @@
       }}
     </picture>
   {%- else -%}
-    {%- render 'snugglez-photo-placeholder', name: 'Hero photo', tone: 'blush' -%}
+    {%- render 'snugglez-photo-placeholder', name: 'Hero photo: click this section › Image', tone: 'blush' -%}
   {%- endif -%}
 {%- endcapture -%}
 
@@ -116,7 +116,6 @@
         {{ hero_copy }}
       </div>
       <div class="snug-hero__visual">
-        <span class="snug-hero__blob" aria-hidden="true"></span>
         <span class="snug-hero__halo" aria-hidden="true"></span>
         <div class="snug-hero__frame snug-shape--{{ section.settings.shape }}">
           {{ hero_media }}

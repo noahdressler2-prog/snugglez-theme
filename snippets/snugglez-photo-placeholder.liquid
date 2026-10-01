@@ -17,6 +17,6 @@
     <span class="snug-photo-ph__label">Photo coming</span>
   </span>
   {%- if request.design_mode -%}
-    <span class="snug-hole__tag snug-hole__tag--float">HOLE — {{ name }}</span>
+    <span class="snug-hole__tag snug-hole__tag--float">{{ prefix | default: 'YOU ADD' }} — {{ name }}</span>
   {%- endif -%}
 </div>

@@ -1,0 +1,159 @@
+{%- comment -%}
+  Custom portrait spotlight: one photo, a short pitch, and a button to the portrait canvases.
+  Replaces the social feed on the homepage (decision #26).
+  The button hides until a link is set; the empty photo shows the "Photo coming" panel.
+{%- endcomment -%}
+{%- render 'snugglez-fonts' -%}
+{%- assign heading_id = 'SnugPortraitHeading-' | append: section.id -%}
+
+<section
+  class="snug-portrait snug-section-pad snug-bg--{{ section.settings.background }}{% if section.settings.image_right %} snug-portrait--image-right{% endif %}"
+  style="--snug-pt: {{ section.settings.padding_top }}px; --snug-pb: {{ section.settings.padding_bottom }}px;"
+  aria-labelledby="{{ heading_id }}"
+>
+  <div class="page-width snug-portrait__inner">
+    <div class="snug-portrait__visual">
+      <div class="snug-portrait__frame snug-shape--arch">
+        {%- if section.settings.image != blank -%}
+          {%- assign fp_style = 'object-position: ' | append: section.settings.image.presentation.focal_point | append: ';' -%}
+          <div class="snug-media">
+            {{
+              section.settings.image
+              | image_url: width: 1600
+              | image_tag:
+                widths: '480, 720, 960, 1200, 1600',
+                sizes: '(min-width: 990px) 42vw, 90vw',
+                loading: 'lazy',
+                style: fp_style
+            }}
+          </div>
+        {%- else -%}
+          {%- render 'snugglez-photo-placeholder', name: 'Portrait photo: click this section › Image', tone: 'petal' -%}
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="snug-portrait__content">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="snug-eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      <h2 id="{{ heading_id }}" class="snug-h2">
+        {{- section.settings.heading | escape -}}
+        {%- if section.settings.heading_accent != blank %}
+          <em class="snug-accent snug-accent--line">{{ section.settings.heading_accent | escape }}</em>
+        {%- endif -%}
+      </h2>
+      {%- if section.settings.text != blank -%}
+        <p class="snug-portrait__text">{{ section.settings.text | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.cta_label != blank and section.settings.cta_url != blank -%}
+        <div class="snug-portrait__actions">
+          <a href="{{ section.settings.cta_url }}" class="snug-btn snug-btn--primary">
+            {{- section.settings.cta_label | escape -}}
+            <span class="snug-btn__arrow" aria-hidden="true">{{- 'icon-arrow.svg' | inline_asset_content -}}</span>
+          </a>
+        </div>
+      {%- elsif request.design_mode -%}
+        <span class="snug-hole__tag snug-portrait__tag">YOU ADD — Button link: click this section › Button link › pick your Portrait canvases collection</span>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Snugglez portrait",
+  "tag": "div",
+  "class": "snug-section-wrap",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Photo",
+      "info": "A finished portrait canvas, ideally hanging in a room. Tall photos fit the arch best."
+    },
+    {
+      "type": "checkbox",
+      "id": "image_right",
+      "label": "Photo on the right (desktop)",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "[EDIT] Small line above heading",
+      "default": "Custom portraits"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "[EDIT] Heading",
+      "default": "Your dog,"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent",
+      "label": "[EDIT] Heading italic accent",
+      "default": "on canvas."
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "[EDIT] Text",
+      "default": "Send us a favorite photo and we'll turn it into a portrait canvas made for the good wall."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "[EDIT] Button label",
+      "default": "Order a portrait"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Button link",
+      "info": "Pick the Portrait canvases collection or product. The button stays hidden until this is set."
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Background",
+      "options": [
+        { "value": "cream-dark", "label": "Warm cream" },
+        { "value": "cream", "label": "Cream" },
+        { "value": "blush", "label": "Blush" },
+        { "value": "white", "label": "White" }
+      ],
+      "default": "cream-dark"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    }
+  ],
+  "presets": [
+    {
+      "name": "Snugglez portrait"
+    }
+  ]
+}
+{% endschema %}

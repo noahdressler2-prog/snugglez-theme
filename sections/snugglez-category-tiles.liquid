@@ -76,15 +76,15 @@
                 {%- else -%}
                   {%- liquid
                     if tile_collection == blank
-                      assign ph_name = 'Collection + photo'
+                      assign ph_name = 'Click this tile › pick a Collection and an Image'
                     else
-                      assign ph_name = 'Tile photo'
+                      assign ph_name = 'Tile photo: click this tile › Image'
                     endif
                   -%}
                   {%- render 'snugglez-photo-placeholder', name: ph_name, tone: tones[tone_index] -%}
                 {%- endif -%}
                 {%- if tile_image != blank and tile_collection == blank and request.design_mode -%}
-                  <span class="snug-hole__tag snug-hole__tag--float">HOLE — Pick a collection</span>
+                  <span class="snug-hole__tag snug-hole__tag--float">YOU ADD — Click this tile › pick a Collection</span>
                 {%- endif -%}
               </div>
               <div class="snug-tile__text">

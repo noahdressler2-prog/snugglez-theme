@@ -558,18 +558,7 @@
   }
 }
 
-/* A soft blush moon behind the arch, plus a fine champagne orbit */
-.snugglez .snug-hero__blob {
-  position: absolute;
-  z-index: 0;
-  top: 0;
-  right: 2%;
-  width: 72%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(circle at 32% 30%, var(--snug-petal) 0%, var(--snug-blush) 62%, rgba(242, 201, 208, 0.6) 100%);
-}
-
+/* A fine champagne orbit behind the arch */
 .snugglez .snug-hero__halo {
   position: absolute;
   z-index: 0;
@@ -1047,6 +1036,62 @@
 }
 
 /* -------------------------------------------------------------------------
+   11b. Portrait spotlight (replaces the social feed on the homepage)
+   ------------------------------------------------------------------------- */
+.snugglez .snug-portrait__inner {
+  display: grid;
+  gap: 4rem;
+  align-items: center;
+}
+
+.snugglez .snug-portrait__visual {
+  display: grid;
+  justify-items: center;
+}
+
+.snugglez .snug-portrait__frame {
+  --snug-arch-v: 40%;
+  position: relative;
+  width: min(86%, 46rem);
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--snug-cream-dark);
+  box-shadow: var(--snug-shadow-soft);
+}
+
+.snugglez .snug-portrait__text {
+  max-width: 44ch;
+  margin: 2rem 0 0;
+  font-size: 1.6rem;
+  line-height: 1.7;
+  color: var(--snug-cocoa);
+}
+
+.snugglez .snug-portrait__actions {
+  margin-top: 3.2rem;
+}
+
+.snugglez .snug-portrait__tag {
+  margin-top: 3.2rem;
+  text-align: left;
+}
+
+@media screen and (min-width: 990px) {
+  .snugglez .snug-portrait__inner {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: 8rem;
+  }
+
+  .snugglez .snug-portrait--image-right .snug-portrait__visual {
+    order: 2;
+  }
+
+  .snugglez .snug-portrait__frame {
+    width: min(100%, 48rem);
+  }
+}
+
+/* -------------------------------------------------------------------------
    12. Newsletter
    ------------------------------------------------------------------------- */
 .snugglez .snug-news__card {
@@ -1348,13 +1393,33 @@
   color: var(--snug-cream);
 }
 
+/* Plain text (not a link), kept on one line */
 .snugglez .snug-footer__email {
-  overflow-wrap: anywhere;
-  text-decoration-color: var(--snug-hairline);
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  white-space: nowrap;
+  color: var(--snug-cream);
 }
 
 .snugglez .snug-footer__brand .snug-hole__tag {
   margin-top: 2.4rem;
+}
+
+/* Editor-only instruction note, readable on the cocoa footer */
+.snugglez .snug-hole__tag--inline {
+  display: block;
+  max-width: 32ch;
+  padding: 1.2rem 1.4rem;
+  border-radius: 1.2rem;
+  background: var(--snug-blush);
+  color: var(--snug-cocoa);
+  font-size: 1.3rem;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0;
+  text-transform: none;
+  text-align: left;
 }
 
 /* Social icons (Sense's social-icons snippet, restyled) */
@@ -1403,8 +1468,9 @@
   font-size: clamp(8rem, 21vw, 28rem);
   font-style: italic;
   font-weight: var(--font-heading-weight);
-  line-height: 0.8;
+  line-height: 1;
   letter-spacing: -0.02em;
+  padding-bottom: 0.12em;
   text-align: center;
   white-space: nowrap;
   color: transparent;
@@ -1467,7 +1533,7 @@
 
 @media screen and (min-width: 990px) {
   .snugglez .snug-footer__top {
-    grid-template-columns: minmax(0, 1.7fr) repeat(3, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(max-content, 1.2fr) minmax(0, 1fr);
   }
 
   .snugglez .snug-footer__brand {

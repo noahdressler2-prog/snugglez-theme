@@ -69,3 +69,13 @@ Remaining gap: orders above $400 still pay $60 (e.g. $600 → $60, not $90). Cha
 | # | Decision | Choice | Notes |
 |---|---|---|---|
 | 25 | Logo | **B3**: ear-monogram badge + champagne divider + italic "Snugglez" (blush z), full-width rule + "FOR DOGS & THE PEOPLE WHO SPOIL THEM" | Chosen by Noah 2026-09-30 from concepts 1+2 combined. Files in `C:\Shopify\snugglez-brand\logo` (outside the theme repo), text outlined (Cormorant 600/500 italic, Jost 400). Header uses the no-slogan `snugglez-logo-header` (slogan is unreadable at header size); favicon = `snugglez-badge-512.png`. Replaces build-spec rule "do not design a logo." Trademark search on "Snugglez" still pending. |
+
+## Round 2 fixes (2026-09-30)
+| # | Decision | Choice | Notes |
+|---|---|---|---|
+| 26 | Social feed | Replaced on the homepage by `snugglez-portrait-spotlight` (photo + pitch + "Order a portrait" button) | Noah: an e-commerce store doesn't need a feed. `snugglez-social-feed.liquid` stays in the repo, unused. The button hides until "Button link" is set. Copy is [EDIT]. |
+| 27 | Hero big pink circle | Removed (`snug-hero__blob`) | Gold ring and round text badge stay. |
+| 28 | Placeholder tags | "HOLE —" → "YOU ADD —" (content Noah supplies) or "TO DECIDE —" (open decision), each with the exact click path | Theme editor only, as before. Footer tags restyled as blush notes so they read on cocoa. |
+| 29 | Footer email | Plain text (no mailto link), never wraps | Desktop column widened to fit it on one line. |
+| 30 | Footer large wordmark | Line-height 0.8 → 1 plus bottom padding | The bottom rule was cutting through the "gg" descenders. |
+| 31 | Collection sort bar | Left as is for now | Noah expects it to look right once products exist. Revisit after products load. |

@@ -32,12 +32,37 @@
     "snugglez_ribbon": {
       "type": "snugglez-ribbon",
       "blocks": {
-        "phrase_1": { "type": "phrase", "settings": { "text": "Spoiled, beautifully" } },
-        "phrase_2": { "type": "phrase", "settings": { "text": "Luxe comforts" } },
-        "phrase_3": { "type": "phrase", "settings": { "text": "The good side of the bed" } },
-        "phrase_4": { "type": "phrase", "settings": { "text": "Tails will wag" } }
+        "phrase_1": {
+          "type": "phrase",
+          "settings": {
+            "text": "Spoiled, beautifully"
+          }
+        },
+        "phrase_2": {
+          "type": "phrase",
+          "settings": {
+            "text": "Luxe comforts"
+          }
+        },
+        "phrase_3": {
+          "type": "phrase",
+          "settings": {
+            "text": "The good side of the bed"
+          }
+        },
+        "phrase_4": {
+          "type": "phrase",
+          "settings": {
+            "text": "Tails will wag"
+          }
+        }
       },
-      "block_order": ["phrase_1", "phrase_2", "phrase_3", "phrase_4"],
+      "block_order": [
+        "phrase_1",
+        "phrase_2",
+        "phrase_3",
+        "phrase_4"
+      ],
       "settings": {
         "background": "blush",
         "aria_label": "Snugglez notes"
@@ -46,12 +71,41 @@
     "snugglez_tiles": {
       "type": "snugglez-category-tiles",
       "blocks": {
-        "tile_hoodies": { "type": "tile", "settings": { "label": "Hoodies", "note": "" } },
-        "tile_accessories": { "type": "tile", "settings": { "label": "Accessories", "note": "" } },
-        "tile_beds": { "type": "tile", "settings": { "label": "Beds and blankets", "note": "" } },
-        "tile_portraits": { "type": "tile", "settings": { "label": "Portrait canvases", "note": "" } }
+        "tile_hoodies": {
+          "type": "tile",
+          "settings": {
+            "label": "Hoodies",
+            "note": ""
+          }
+        },
+        "tile_accessories": {
+          "type": "tile",
+          "settings": {
+            "label": "Accessories",
+            "note": ""
+          }
+        },
+        "tile_beds": {
+          "type": "tile",
+          "settings": {
+            "label": "Beds and blankets",
+            "note": ""
+          }
+        },
+        "tile_portraits": {
+          "type": "tile",
+          "settings": {
+            "label": "Portrait canvases",
+            "note": ""
+          }
+        }
       },
-      "block_order": ["tile_hoodies", "tile_accessories", "tile_beds", "tile_portraits"],
+      "block_order": [
+        "tile_hoodies",
+        "tile_accessories",
+        "tile_beds",
+        "tile_portraits"
+      ],
       "settings": {
         "eyebrow": "Shop by category",
         "heading": "Shop the",
@@ -76,29 +130,6 @@
         "padding_bottom": 96
       }
     },
-    "snugglez_social": {
-      "type": "snugglez-social-feed",
-      "blocks": {
-        "photo_1": { "type": "photo", "settings": {} },
-        "photo_2": { "type": "photo", "settings": {} },
-        "photo_3": { "type": "photo", "settings": {} },
-        "photo_4": { "type": "photo", "settings": {} },
-        "photo_5": { "type": "photo", "settings": {} },
-        "photo_6": { "type": "photo", "settings": {} }
-      },
-      "block_order": ["photo_1", "photo_2", "photo_3", "photo_4", "photo_5", "photo_6"],
-      "settings": {
-        "eyebrow": "Snugglez in the wild",
-        "heading": "Follow the",
-        "heading_accent": "good life.",
-        "handle": "",
-        "cta_label": "Follow along",
-        "cta_url": "",
-        "background": "cream-dark",
-        "padding_top": 96,
-        "padding_bottom": 112
-      }
-    },
     "snugglez_newsletter": {
       "type": "snugglez-newsletter",
       "settings": {
@@ -118,6 +149,21 @@
         "padding_top": 96,
         "padding_bottom": 112
       }
+    },
+    "snugglez_portrait": {
+      "type": "snugglez-portrait-spotlight",
+      "settings": {
+        "image_right": false,
+        "eyebrow": "Custom portraits",
+        "heading": "Your dog,",
+        "heading_accent": "on canvas.",
+        "text": "Send us a favorite photo and we'll turn it into a portrait canvas made for the good wall.",
+        "cta_label": "Order a portrait",
+        "cta_url": "",
+        "background": "cream-dark",
+        "padding_top": 96,
+        "padding_bottom": 112
+      }
     }
   },
   "order": [
@@ -125,7 +171,7 @@
     "snugglez_ribbon",
     "snugglez_tiles",
     "snugglez_grid_hole",
-    "snugglez_social",
+    "snugglez_portrait",
     "snugglez_newsletter"
   ]
 }
