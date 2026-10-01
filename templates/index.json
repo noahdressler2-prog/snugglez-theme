@@ -74,6 +74,7 @@
         "tile_hoodies": {
           "type": "tile",
           "settings": {
+            "collection": "hoodies",
             "label": "Hoodies",
             "note": ""
           }
@@ -81,6 +82,7 @@
         "tile_accessories": {
           "type": "tile",
           "settings": {
+            "collection": "accessories",
             "label": "Accessories",
             "note": ""
           }
@@ -88,6 +90,7 @@
         "tile_beds": {
           "type": "tile",
           "settings": {
+            "collection": "beds-and-blankets",
             "label": "Beds and blankets",
             "note": ""
           }
@@ -95,6 +98,7 @@
         "tile_portraits": {
           "type": "tile",
           "settings": {
+            "collection": "portrait-canvases",
             "label": "Portrait canvases",
             "note": ""
           }
@@ -159,7 +163,7 @@
         "heading_accent": "on canvas.",
         "text": "Send us a favorite photo and we'll turn it into a portrait canvas made for the good wall.",
         "cta_label": "Order a portrait",
-        "cta_url": "",
+        "cta_url": "shopify://collections/portrait-canvases",
         "background": "cream-dark",
         "padding_top": 96,
         "padding_bottom": 112

@@ -79,3 +79,5 @@ Remaining gap: orders above $400 still pay $60 (e.g. $600 → $60, not $90). Cha
 | 29 | Footer email | Plain text (no mailto link), never wraps | Desktop column widened to fit it on one line. |
 | 30 | Footer large wordmark | Line-height 0.8 → 1 plus bottom padding | The bottom rule was cutting through the "gg" descenders. |
 | 31 | Collection sort bar | Left as is for now | Noah expects it to look right once products exist. Revisit after products load. |
+| 32 | Collections + menu | Created Hoodies, Accessories, Beds and blankets, Portrait canvases (empty, manual) and menu `shop-by-category` with all four | Done in admin 2026-09-30 at Noah's request. Header and footer already pointed at the handle. Homepage tiles linked to the four collections; portrait button → `/collections/portrait-canvases`. |
+| 33 | Which theme Noah edits | `snugglez-theme/main` (#192163217725), GitHub-connected to `main` | Pushing to GitHub `main` updates it; Shopify commits editor changes back (rebase, never overwrite). The CLI draft "Sense" (#192152568125) is kept in sync but has no logo. |
